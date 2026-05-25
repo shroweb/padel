@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { Instagram, MapPin, Trophy, Users, Sparkles, ArrowRight, Calendar } from "lucide-react";
+import { Instagram, MapPin, Trophy, Users, Sparkles, ArrowRight, Calendar, Smartphone } from "lucide-react";
 import { FadeUp } from "@/components/FadeUp";
 import { Logo } from "@/components/Logo";
 import { CountUp } from "@/components/CountUp";
@@ -49,10 +49,12 @@ function Norwich() {
         <div className="hidden lg:flex items-center gap-6 xl:gap-8 font-display uppercase tracking-wider text-sm text-white">
           <Link to="/" className="hover:text-court-lime transition">Home</Link>
           <a href="#courts" className="hover:text-court-lime transition">Courts</a>
+          <a href="#coaching" className="hover:text-court-lime transition">Coaching</a>
           <a href="#events" className="hover:text-court-lime transition">What's On</a>
           <a href="#pricing" className="hover:text-court-lime transition">Pricing</a>
           <a href="#location" className="hover:text-court-lime transition">Location</a>
           <Link to="/hull" className="hover:text-court-lime transition">Hull</Link>
+          <Link to="/press" className="hover:text-court-lime transition">Press</Link>
         </div>
         <a
           href={PLAYTOMIC}
@@ -191,8 +193,72 @@ function Norwich() {
         </div>
       </section>
 
+      {/* Learn to Play */}
+      <section id="coaching" className="py-20 sm:py-28 px-5 sm:px-10 bg-court-blue/40 border-y border-white/10">
+        <div className="max-w-6xl mx-auto">
+          <FadeUp>
+            <span className="text-court-lime font-display uppercase tracking-widest text-sm">Coaching</span>
+            <h2 className="mt-3 font-display font-extrabold uppercase text-5xl sm:text-7xl leading-[0.95]">
+              Learn to Play<br />With Us
+            </h2>
+            <p className="mt-6 text-white/65 max-w-2xl leading-relaxed">
+              New to padel or looking to improve your game? Our sessions are designed for all levels — whether you're picking up a racket for the first time or building on existing skills in a fun, social environment.
+            </p>
+          </FadeUp>
+          <div className="mt-12 grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            {[
+              {
+                icon: Users,
+                title: "Kids Lessons",
+                desc: "Structured sessions for younger players — building technique and a love for the game in a safe, fun setting.",
+              },
+              {
+                icon: Trophy,
+                title: "Private Coaching",
+                desc: "One-to-one sessions with our experienced coaches, tailored to your level and goals.",
+              },
+              {
+                icon: Users,
+                title: "Group Sessions",
+                desc: "Small group sessions for adults of all abilities. Learn together, improve together.",
+              },
+              {
+                icon: Calendar,
+                title: "Americano Tournaments",
+                desc: "Social tournament format where you rotate partners. Perfect for meeting new players and testing your skills.",
+              },
+              {
+                icon: Sparkles,
+                title: "Taster Sessions",
+                desc: "Never played before? A taster session is the perfect intro — all equipment provided, no experience needed.",
+              },
+            ].map((s, i) => (
+              <FadeUp key={s.title} delay={i * 0.08}>
+                <div className="h-full bg-white/[0.06] border border-white/10 p-6 hover:border-court-lime/60 hover:-translate-y-1 transition-all duration-300">
+                  <div className="w-10 h-10 bg-court-lime/15 border border-court-lime/30 flex items-center justify-center mb-4">
+                    <s.icon className="w-5 h-5 text-court-lime" strokeWidth={2} />
+                  </div>
+                  <h3 className="font-display font-bold uppercase text-xl tracking-wide text-court-lime">{s.title}</h3>
+                  <p className="mt-3 text-white/70 leading-relaxed text-sm">{s.desc}</p>
+                </div>
+              </FadeUp>
+            ))}
+          </div>
+          <FadeUp delay={0.3}>
+            <a
+              href={PLAYTOMIC}
+              target="_blank"
+              rel="noreferrer"
+              className="mt-10 inline-flex items-center gap-2 bg-court-lime text-court-navy font-display font-bold uppercase tracking-wider text-sm px-6 py-3 hover:bg-court-lime/90 transition"
+            >
+              Book on Playtomic <ArrowRight className="w-4 h-4" />
+            </a>
+          </FadeUp>
+        </div>
+      </section>
+
       {/* What's On */}
-      <section id="events" className="py-20 sm:py-28 px-5 sm:px-10 bg-court-blue/40 border-y border-white/10">
+      <section id="events" className="py-20 sm:py-28 px-5 sm:px-10">
         <div className="max-w-6xl mx-auto">
           <FadeUp>
             <span className="text-court-lime font-display uppercase tracking-widest text-sm">What's On</span>
@@ -250,61 +316,96 @@ function Norwich() {
       </section>
 
       {/* Pricing */}
-      <section id="pricing" className="py-20 sm:py-28 px-5 sm:px-10">
+      <section id="pricing" className="py-20 sm:py-28 px-5 sm:px-10 bg-court-blue/40 border-y border-white/10">
         <div className="max-w-6xl mx-auto">
           <FadeUp>
             <span className="text-court-lime font-display uppercase tracking-widest text-sm">Pricing</span>
             <h2 className="mt-3 font-display font-extrabold uppercase text-5xl sm:text-7xl leading-[0.95]">Court Hire</h2>
+            <p className="mt-4 text-white/55 font-display uppercase tracking-widest text-xs">
+              Members get 10% off all bookings
+            </p>
           </FadeUp>
-          <div className="mt-12 grid md:grid-cols-2 gap-5 max-w-3xl">
+
+          {/* Court hire pricing grid */}
+          <div className="mt-12 grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
             {[
-              { type: "Doubles Court", offPeak: "£32 / hr", peak: "£44 / hr" },
-              { type: "Singles Court", offPeak: "£18 / hr", peak: "£22 / hr" },
-            ].map((p, i) => (
-              <FadeUp key={p.type} delay={i * 0.1}>
-                <div className="h-full bg-white/[0.06] border border-white/10 p-8">
-                  <h3 className="font-display font-bold uppercase text-2xl tracking-wide">{p.type}</h3>
-                  <div className="mt-6 space-y-3">
-                    <div className="flex justify-between items-center border-b border-white/10 pb-3">
-                      <span className="text-white/65 text-sm uppercase tracking-wider font-display">Off-Peak</span>
-                      <span className="font-display font-bold text-2xl text-court-lime">{p.offPeak}</span>
-                    </div>
-                    <div className="flex justify-between items-center">
-                      <span className="text-white/65 text-sm uppercase tracking-wider font-display">Peak</span>
-                      <span className="font-display font-bold text-2xl">{p.peak}</span>
-                    </div>
+              {
+                label: "Off Peak",
+                type: "Single Courts",
+                highlight: false,
+                prices: [["1 Hour", "£20"], ["90 Minutes", "£30"], ["2 Hours", "£40"]],
+              },
+              {
+                label: "Peak",
+                type: "Single Courts",
+                highlight: false,
+                prices: [["1 Hour", "£24"], ["90 Minutes", "£34"], ["2 Hours", "£44"]],
+              },
+              {
+                label: "Off Peak",
+                type: "Double Courts",
+                highlight: true,
+                prices: [["1 Hour", "£34"], ["90 Minutes", "£48"], ["2 Hours", "£64"]],
+              },
+              {
+                label: "Peak",
+                type: "Double Courts",
+                highlight: false,
+                prices: [["1 Hour", "£44"], ["90 Minutes", "£60"], ["2 Hours", "£80"]],
+              },
+            ].map((card, i) => (
+              <FadeUp key={`${card.type}-${card.label}`} delay={i * 0.08}>
+                <div className={`h-full border p-6 ${card.highlight ? "bg-court-lime/10 border-court-lime/40" : "bg-white/[0.06] border-white/10"}`}>
+                  <div className={`inline-block font-display font-bold uppercase text-xs tracking-widest px-2 py-1 mb-3 ${card.highlight ? "bg-court-lime text-court-navy" : "bg-white/10 text-white/70"}`}>
+                    {card.label}
+                  </div>
+                  <h3 className="font-display font-bold uppercase text-xl tracking-wide">{card.type}</h3>
+                  <div className="mt-4 space-y-2.5">
+                    {card.prices.map(([dur, price]) => (
+                      <div key={dur} className="flex justify-between items-center border-b border-white/10 pb-2.5 last:border-0 last:pb-0">
+                        <span className="text-white/55 text-sm font-display uppercase tracking-wide">{dur}</span>
+                        <span className="font-display font-bold text-xl text-court-lime">{price}</span>
+                      </div>
+                    ))}
                   </div>
                 </div>
               </FadeUp>
             ))}
           </div>
+
+          {/* Membership */}
           <FadeUp delay={0.2}>
-            <div className="mt-6 bg-court-lime/10 border border-court-lime/30 p-6 max-w-3xl">
+            <div className="mt-8 bg-court-lime/10 border border-court-lime/30 p-6 max-w-3xl">
               <h3 className="font-display font-bold uppercase text-xl tracking-wide text-court-lime">
                 Membership — £17.50 / month
               </h3>
-              <ul className="mt-4 space-y-2 text-white/75 text-sm leading-relaxed">
+              <div className="mt-4 grid sm:grid-cols-2 gap-x-8 gap-y-2">
                 {[
                   "10% off all court bookings",
-                  "Free racket hire (normally £5)",
-                  "20% off all classes",
-                  "Access to member-only events with free food, drinks & racket hire",
-                  "21-day priority booking window",
                   "10% off food & drinks",
+                  "21-day priority booking window",
+                  "Exclusive member-only events",
+                  "10% off clothing",
+                  "20% discount on all classes",
+                  "Free racket hire",
                 ].map((b) => (
-                  <li key={b} className="flex items-start gap-2">
+                  <div key={b} className="flex items-start gap-2 text-white/75 text-sm">
                     <span className="text-court-lime mt-0.5 shrink-0">✓</span>
                     {b}
-                  </li>
+                  </div>
                 ))}
-              </ul>
+              </div>
             </div>
           </FadeUp>
+
+          {/* Equipment */}
           <FadeUp delay={0.25}>
-            <p className="mt-4 text-white/50 text-sm max-w-3xl">
-              Rental rackets £5 · Balls £5.50 · Equipment included in all classes & private sessions
-            </p>
+            <div className="mt-4 text-white/50 text-sm max-w-3xl space-y-1">
+              <p>Rental rackets £4 each — free for members · Balls £6.50</p>
+              <p>Equipment provided for all classes &amp; private sessions</p>
+            </div>
           </FadeUp>
+
           <FadeUp delay={0.3}>
             <a
               href={PLAYTOMIC}
@@ -314,6 +415,49 @@ function Norwich() {
             >
               Book on Playtomic <ArrowRight className="w-4 h-4" />
             </a>
+          </FadeUp>
+        </div>
+      </section>
+
+      {/* Install the App */}
+      <section className="py-16 sm:py-20 px-5 sm:px-10 bg-court-navy">
+        <div className="max-w-6xl mx-auto flex flex-col lg:flex-row items-start lg:items-center justify-between gap-10">
+          <FadeUp>
+            <span className="text-court-lime font-display uppercase tracking-widest text-sm">Booking</span>
+            <h2 className="mt-3 font-display font-extrabold uppercase text-4xl sm:text-5xl leading-[0.95]">
+              Install the App
+            </h2>
+            <p className="mt-4 text-white/65 max-w-md leading-relaxed">
+              Download Playtomic on iOS or Android, then log in or create an account to book courts, join sessions and manage your game.
+            </p>
+          </FadeUp>
+          <FadeUp delay={0.15}>
+            <div className="flex flex-col sm:flex-row gap-4">
+              <a
+                href="https://apps.apple.com/app/playtomic-play-padel/id1244519546"
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center gap-4 border border-white/20 px-6 py-4 hover:border-court-lime hover:text-court-lime transition group"
+              >
+                <Smartphone className="w-6 h-6 text-court-lime shrink-0" />
+                <div>
+                  <div className="text-xs text-white/55 uppercase tracking-widest font-display">Download on the</div>
+                  <div className="font-display font-bold uppercase tracking-wide">App Store</div>
+                </div>
+              </a>
+              <a
+                href="https://play.google.com/store/apps/details?id=io.playtomic.app"
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center gap-4 border border-white/20 px-6 py-4 hover:border-court-lime hover:text-court-lime transition group"
+              >
+                <Smartphone className="w-6 h-6 text-court-lime shrink-0" />
+                <div>
+                  <div className="text-xs text-white/55 uppercase tracking-widest font-display">Get it on</div>
+                  <div className="font-display font-bold uppercase tracking-wide">Google Play</div>
+                </div>
+              </a>
+            </div>
           </FadeUp>
         </div>
       </section>

@@ -54,6 +54,7 @@ function Hull() {
           <a href="#pricing" className="hover:text-court-lime transition">Pricing</a>
           <a href="#location" className="hover:text-court-lime transition">Location</a>
           <Link to="/norwich" className="hover:text-court-lime transition">Norwich</Link>
+          <Link to="/press" className="hover:text-court-lime transition">Press</Link>
         </div>
         <a
           href={PLAYTOMIC}

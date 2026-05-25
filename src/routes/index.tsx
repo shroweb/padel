@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { Instagram, MapPin, Trophy, Users, Sparkles, ArrowRight } from "lucide-react";
+import { Instagram, MapPin, Trophy, Users, Sparkles, ArrowRight, ArrowUpRight } from "lucide-react";
 import { WaitlistForm } from "@/components/WaitlistForm";
 import { FadeUp } from "@/components/FadeUp";
 import { Logo } from "@/components/Logo";
@@ -57,7 +57,7 @@ function Index() {
         <div className="hidden lg:flex items-center gap-6 xl:gap-8 font-display uppercase tracking-wider text-sm text-white">
           <a href="#what-is-padel" className="hover:text-court-lime transition">What is Padel?</a>
           <a href="#faqs" className="hover:text-court-lime transition">FAQs</a>
-          <a href="#press" className="hover:text-court-lime transition">Press</a>
+          <Link to="/press" className="hover:text-court-lime transition">Press</Link>
           <a href="#corporate" className="hover:text-court-lime transition">Corporate</a>
           <a href="#coming-up" className="hover:text-court-lime transition">Coming up</a>
           <Link to="/norwich" className="hover:text-court-lime transition">Norwich</Link>
@@ -329,7 +329,7 @@ function Index() {
               { q: "How many courts?", a: "6 double super-panoramic courts and 2 single super-panoramic courts, plus table tennis throughout the club." },
               { q: "Indoor or outdoor?", a: "All courts are indoor. We've got you covered for the English weather." },
               { q: "How much does it cost?", a: "Doubles: £32 off-peak / £44 peak per hour. Singles: £18 off-peak / £22 peak per hour. Members get 10% off." },
-              { q: "Can I rent equipment?", a: "Rental rackets £5 (free for members). Balls £5.50. Equipment is provided for classes and private sessions." },
+              { q: "Can I rent equipment?", a: "Rental rackets £4 (free for members). Balls £6.50. Equipment is provided for classes and private sessions." },
               { q: "What's included in membership?", a: "£17.50pppm — 10% off courts, MODO Pilates, food & drinks. Access to members-only events with free food, drinks and racket hire. 20% off classes, BodyReset and merch. 21-day priority booking." },
             ].map((f, i) => (
               <FadeUp key={f.q} delay={i * 0.05}>
@@ -348,24 +348,70 @@ function Index() {
         <div className="max-w-6xl mx-auto">
           <FadeUp>
             <span className="text-court-lime font-display uppercase tracking-widest text-sm">Press</span>
-            <h2 className="mt-3 font-display font-extrabold uppercase text-5xl sm:text-7xl leading-[0.95]">In The News</h2>
-            <p className="mt-6 text-white/75 max-w-2xl">Court de Padel is bringing premium indoor padel to towns and cities across the UK — with a target of 3–4 new clubs opening every year.</p>
+            <h2 className="mt-3 font-display font-extrabold uppercase text-5xl sm:text-7xl leading-[0.95]">
+              Making a Racket
+            </h2>
           </FadeUp>
           <div className="mt-12 grid md:grid-cols-3 gap-5">
             {[
-              { tag: "Launch", title: "Norwich opens November 2025", desc: "Our first club fast becomes the number one padel venue in Norfolk." },
-              { tag: "Expansion", title: "Hull launches 2026", desc: "Our second site — eight super-panoramic indoor courts arriving in HU5." },
-              { tag: "Growth", title: "Two more locations in 2026", desc: "A national rollout, with 3–4 new clubs targeted every year." },
+              {
+                source: "Hull Daily Mail",
+                date: "Jul 2025",
+                tag: "Hull",
+                headline: "Plans for new sports centre submitted to Hull City Council",
+                excerpt: "It would have eight indoor sports courts and an outdoor padel court.",
+                href: "https://www.hulldailymail.co.uk/news/hull-east-yorkshire-news/plans-new-indoor-sports-centre-10368020",
+              },
+              {
+                source: "Evening News",
+                date: "10 Aug 2025",
+                tag: "Norwich",
+                headline: "New sports centre in Kirkham House to open next month",
+                excerpt: "Court De Padel has been revealed as the new business to open an indoor sports centre at Kirkham House, in Whiffler Road.",
+                href: "https://www.eveningnews24.co.uk/news/25368596.new-sports-centre-kirkham-house-open-next-month/",
+              },
+              {
+                source: "hullisthis.news",
+                date: "11 Nov 2025",
+                tag: "Hull",
+                headline: "Court De Padel to open new Padel centre in Hull",
+                excerpt: "Court De Padel announces its newest venue at Unit 3, National Business Park, Bontoft Avenue, HU5 4HF — opening to the public in March 2026.",
+                href: "https://hullisthis.news/court-de-padel-to-open-new-padel-centre-in-hull/",
+              },
             ].map((p, i) => (
-              <FadeUp key={p.title} delay={i * 0.1}>
-                <div className="h-full bg-white/[0.06] border border-white/10 p-8 hover:border-court-lime/60 transition">
-                  <span className="text-court-lime font-display uppercase tracking-widest text-xs">{p.tag}</span>
-                  <h3 className="mt-3 font-display font-bold uppercase text-2xl tracking-wide">{p.title}</h3>
-                  <p className="mt-3 text-white/65 leading-relaxed">{p.desc}</p>
-                </div>
+              <FadeUp key={p.headline} delay={i * 0.1}>
+                <a
+                  href={p.href}
+                  target={p.href !== "#" ? "_blank" : undefined}
+                  rel={p.href !== "#" ? "noreferrer" : undefined}
+                  className="group flex flex-col h-full bg-white/[0.06] border border-white/10 p-8 hover:border-court-lime/60 hover:-translate-y-1 hover:bg-white/[0.08] transition-all duration-300"
+                >
+                  <div className="flex items-center justify-between gap-3 mb-4">
+                    <span className="inline-block font-display font-bold uppercase text-xs tracking-widest bg-court-lime/15 border border-court-lime/30 text-court-lime px-2.5 py-1">
+                      {p.tag}
+                    </span>
+                    <span className="text-white/40 text-xs font-display uppercase tracking-wider shrink-0">{p.date}</span>
+                  </div>
+                  <p className="text-white/45 text-xs font-display uppercase tracking-widest mb-3">{p.source}</p>
+                  <h3 className="font-display font-bold uppercase text-xl tracking-wide leading-[1.1] flex-1 group-hover:text-court-lime transition-colors duration-200">
+                    {p.headline}
+                  </h3>
+                  <p className="mt-3 text-white/60 text-sm leading-relaxed">{p.excerpt}</p>
+                  <div className="mt-5 flex items-center gap-2 font-display font-bold uppercase tracking-widest text-xs text-court-lime">
+                    Read <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-200" />
+                  </div>
+                </a>
               </FadeUp>
             ))}
           </div>
+          <FadeUp delay={0.25}>
+            <Link
+              to="/press"
+              className="mt-8 inline-flex items-center gap-2 border border-white/30 text-white font-display font-bold uppercase tracking-wider text-sm px-6 py-3 hover:border-court-lime hover:text-court-lime transition"
+            >
+              All Press Coverage <ArrowRight className="w-4 h-4" />
+            </Link>
+          </FadeUp>
         </div>
       </section>
 

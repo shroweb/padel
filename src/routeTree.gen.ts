@@ -9,10 +9,16 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as PressRouteImport } from './routes/press'
 import { Route as NorwichRouteImport } from './routes/norwich'
 import { Route as HullRouteImport } from './routes/hull'
 import { Route as IndexRouteImport } from './routes/index'
 
+const PressRoute = PressRouteImport.update({
+  id: '/press',
+  path: '/press',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const NorwichRoute = NorwichRouteImport.update({
   id: '/norwich',
   path: '/norwich',
@@ -33,34 +39,45 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/hull': typeof HullRoute
   '/norwich': typeof NorwichRoute
+  '/press': typeof PressRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/hull': typeof HullRoute
   '/norwich': typeof NorwichRoute
+  '/press': typeof PressRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/hull': typeof HullRoute
   '/norwich': typeof NorwichRoute
+  '/press': typeof PressRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/hull' | '/norwich'
+  fullPaths: '/' | '/hull' | '/norwich' | '/press'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/hull' | '/norwich'
-  id: '__root__' | '/' | '/hull' | '/norwich'
+  to: '/' | '/hull' | '/norwich' | '/press'
+  id: '__root__' | '/' | '/hull' | '/norwich' | '/press'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   HullRoute: typeof HullRoute
   NorwichRoute: typeof NorwichRoute
+  PressRoute: typeof PressRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/press': {
+      id: '/press'
+      path: '/press'
+      fullPath: '/press'
+      preLoaderRoute: typeof PressRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/norwich': {
       id: '/norwich'
       path: '/norwich'
@@ -89,6 +106,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   HullRoute: HullRoute,
   NorwichRoute: NorwichRoute,
+  PressRoute: PressRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
