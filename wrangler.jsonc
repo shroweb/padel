@@ -7,6 +7,6 @@
   "kv_namespaces": [
     // Run: npx wrangler kv namespace create WAITLIST_KV
     // then paste the returned id below.
-    { "binding": "WAITLIST_KV", "id": "REPLACE_WITH_YOUR_KV_NAMESPACE_ID" }
+    { "binding": "WAITLIST_KV", "id": "0a90957591664d6a93d4168cbdf07b3b" }
   ],
 }
