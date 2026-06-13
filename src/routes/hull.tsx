@@ -1,10 +1,10 @@
-import { useState } from "react";
-import { createFileRoute, Link } from "@tanstack/react-router";
-import { Instagram, MapPin, Trophy, Users, Sparkles, ArrowRight, Menu, X, Check } from "lucide-react";
+import { createFileRoute } from "@tanstack/react-router";
+import { MapPin, Trophy, Users, Sparkles, ArrowRight, Check } from "lucide-react";
 import { FadeUp } from "@/components/FadeUp";
-import { Logo } from "@/components/Logo";
 import { CountUp } from "@/components/CountUp";
-import { useScrolled } from "@/hooks/use-scrolled";
+import { Marquee } from "@/components/Marquee";
+import { SiteNav } from "@/components/SiteNav";
+import { SiteFooter } from "@/components/SiteFooter";
 
 export const Route = createFileRoute("/hull")({
   component: Hull,
@@ -29,81 +29,9 @@ const PLAYTOMIC =
   "https://playtomic.io/tenant/04a4fdf5-418b-4ebb-888b-1ed46cfa8d9c?utm_campaign=share&utm_source=app_ios";
 
 function Hull() {
-  const scrolled = useScrolled(60);
-  const [menuOpen, setMenuOpen] = useState(false);
-
   return (
     <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
-
-      {/* 15. Announcement bar — "Now Open" */}
-      <div className="bg-court-lime text-court-navy text-xs sm:text-sm tracking-widest uppercase py-2 px-4 text-center font-display font-bold">
-        <span className="inline-flex items-center gap-2">
-          <span className="w-1.5 h-1.5 bg-court-navy rounded-full animate-pulse" />
-          Hull is Now Open — Book Your First Court Today
-          <span className="w-1.5 h-1.5 bg-court-navy rounded-full animate-pulse" />
-        </span>
-      </div>
-
-      {/* 16. Nav — with mobile hamburger menu */}
-      <nav
-        className={`sticky top-0 z-40 flex items-center justify-between px-5 sm:px-10 bg-court-blue transition-all duration-300 ${
-          scrolled ? "py-2 border-b border-white/10 shadow-lg" : "py-3"
-        }`}
-      >
-        <Link to="/" aria-label="Court de Padel home">
-          <Logo size={scrolled ? 36 : 44} />
-        </Link>
-        <div className="hidden lg:flex items-center gap-6 xl:gap-8 font-display uppercase tracking-wider text-sm text-white">
-          <Link to="/" className="hover:text-court-lime transition">Home</Link>
-          <a href="#courts" className="hover:text-court-lime transition">Courts</a>
-          <a href="#amenities" className="hover:text-court-lime transition">Amenities</a>
-          <a href="#pricing" className="hover:text-court-lime transition">Pricing</a>
-          <a href="#location" className="hover:text-court-lime transition">Location</a>
-          <Link to="/norwich" className="hover:text-court-lime transition">Norwich</Link>
-          <Link to="/press" className="hover:text-court-lime transition">Press</Link>
-        </div>
-        <div className="flex items-center gap-3">
-          <a
-            href={PLAYTOMIC}
-            target="_blank"
-            rel="noreferrer"
-            className="bg-court-lime text-court-navy font-display font-bold uppercase tracking-wider text-xs sm:text-sm px-4 sm:px-5 py-2.5 hover:bg-court-lime/90 transition"
-          >
-            Book Now
-          </a>
-          <button
-            onClick={() => setMenuOpen(!menuOpen)}
-            className="lg:hidden w-10 h-10 flex items-center justify-center text-white hover:text-court-lime transition"
-            aria-label="Toggle menu"
-          >
-            {menuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-          </button>
-        </div>
-      </nav>
-
-      {/* Mobile menu */}
-      {menuOpen && (
-        <div className="lg:hidden fixed inset-0 z-30 bg-court-navy/98 flex flex-col items-center justify-center gap-8 text-center"
-          style={{ top: scrolled ? "52px" : "60px" }}>
-          {[
-            { label: "Courts", href: "#courts" },
-            { label: "Amenities", href: "#amenities" },
-            { label: "Pricing", href: "#pricing" },
-            { label: "Location", href: "#location" },
-          ].map((item) => (
-            <a
-              key={item.href}
-              href={item.href}
-              onClick={() => setMenuOpen(false)}
-              className="font-display font-bold uppercase tracking-widest text-3xl text-white hover:text-court-lime transition"
-            >
-              {item.label}
-            </a>
-          ))}
-          <Link to="/norwich" onClick={() => setMenuOpen(false)} className="font-display font-bold uppercase tracking-widest text-3xl text-white hover:text-court-lime transition">Norwich</Link>
-          <Link to="/" onClick={() => setMenuOpen(false)} className="font-display font-bold uppercase tracking-widest text-3xl text-white hover:text-court-lime transition">Home</Link>
-        </div>
-      )}
+      <SiteNav />
 
       {/* 17. Hero — with local Hull image as background */}
       <header className="relative min-h-[calc(100vh-140px)] flex items-center px-5 sm:px-10 py-16 overflow-hidden">
@@ -129,11 +57,11 @@ function Hull() {
                 Hull · Now Open
               </span>
             </div>
-            <h1 className="font-display font-extrabold uppercase leading-[0.85] text-[clamp(3.5rem,13vw,11rem)] tracking-tight flex flex-wrap items-baseline gap-x-[0.18em] gap-y-2">
-              <span>Game</span>
-              <span className="inline-block w-[0.06em] h-[0.7em] bg-court-lime self-center" />
-              <span>Set</span>
-              <span className="inline-block w-[0.06em] h-[0.7em] bg-court-lime self-center" />
+            <h1 className="font-display font-extrabold uppercase leading-[0.85] text-[clamp(3.5rem,13vw,11rem)] tracking-tight">
+              Game
+              <span className="inline-block w-[0.06em] h-[0.75em] bg-court-lime mx-[0.15em]" />
+              Set
+              <span className="inline-block w-[0.06em] h-[0.75em] bg-court-lime mx-[0.15em]" />
               <span
                 className="text-transparent"
                 style={{ WebkitTextStroke: "2px var(--court-lime)" }}
@@ -175,6 +103,56 @@ function Hull() {
         </div>
       </header>
 
+      {/* Marquee */}
+      <Marquee
+        items={[
+          "Hull · Now Open",
+          "8 Super-Panoramic Indoor Courts",
+          "Bar · Café · BodyReset · Physio",
+          "Pickleball Courts",
+          "Social Play · Leagues · Tournaments",
+          "Americano · Run Club · Ladies Social",
+          "Norwich · Open Now",
+        ]}
+      />
+
+      {/* Photo gallery */}
+      <div className="grid grid-cols-2 md:grid-cols-4">
+        {[
+          { src: "https://images.squarespace-cdn.com/content/v1/6777dae8a2db76294b6d4e0e/3387da17-4241-42dc-a098-52f6a8cec5ab/IMG_7604.JPG?format=800w", alt: "Court de Padel courts", caption: "The Courts" },
+          { src: "https://images.squarespace-cdn.com/content/v1/6777dae8a2db76294b6d4e0e/59cc6eef-a51a-4001-89bc-827fed2fd44c/6+700%2B+Padel+Photos%2C+taleaux+et+images+libre+de+droits.jpeg?format=800w", alt: "Padel court action", caption: "Game On" },
+          { src: "https://images.squarespace-cdn.com/content/v1/6777dae8a2db76294b6d4e0e/9d9b6b25-a935-49fd-adc1-8ba57849b8fc/OYSHO+_+NEW+PADEL+COLLECTION+Discover+the+favourite+look+of+our+Padel+Player+%40carlottacasali+%F0%9F%99%8C%F0%9F%8F%BC+%23oysho+%23padel+%23padelplayers+%23carlottacasali+_+Instagram.jpeg?format=800w", alt: "Padel player", caption: "Every Level" },
+          { src: "https://images.squarespace-cdn.com/content/v1/6777dae8a2db76294b6d4e0e/1749813016687-BBWP0MFAA11VJBOD49QT/unsplash-image-JnoNcfFwrNA.jpg?format=800w", alt: "Padel courts", caption: "Social Play" },
+        ].map((img) => (
+          <div key={img.src} className="aspect-square overflow-hidden relative group">
+            <img
+              src={img.src}
+              alt={img.alt}
+              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+              loading="lazy"
+            />
+            <div className="absolute inset-0 bg-court-navy/0 group-hover:bg-court-navy/60 transition-all duration-400" />
+            <span className="absolute bottom-4 left-4 font-display font-bold uppercase tracking-widest text-xs text-white opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300">
+              {img.caption}
+            </span>
+          </div>
+        ))}
+      </div>
+
+      {/* As Featured In strip */}
+      <div className="bg-court-navy/60 border-y border-white/10 py-6 px-5 sm:px-10">
+        <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center gap-6 sm:gap-10">
+          <span className="font-display uppercase tracking-widest text-xs text-white/40 shrink-0">As Featured In</span>
+          <div className="flex flex-wrap items-center justify-center sm:justify-start gap-6 sm:gap-10">
+            {["Hull Daily Mail", "BBC", "Evening News", "Stoke Sentinel", "hullisthis.news", "PPH Commercial"].map((pub) => (
+              <span key={pub} className="font-display font-bold uppercase tracking-wider text-sm text-white/55 hover:text-white/90 transition cursor-default">
+                {pub}
+              </span>
+            ))}
+          </div>
+        </div>
+      </div>
+
       {/* Stats */}
       <section className="bg-court-navy py-12 sm:py-16 px-5 sm:px-10 relative overflow-hidden">
         <div className="absolute inset-0 flex items-center justify-center pointer-events-none select-none">
@@ -205,8 +183,51 @@ function Hull() {
         </div>
       </section>
 
+      {/* What to expect — three card section with hover */}
+      <section className="py-20 sm:py-28 px-5 sm:px-10">
+        <div className="max-w-6xl mx-auto">
+          <FadeUp>
+            <span className="text-court-lime font-display uppercase tracking-widest text-sm">What to Expect</span>
+            <h2 className="mt-3 font-display font-extrabold uppercase text-5xl sm:text-7xl leading-[0.95]">
+              Built for the<br />Game. Built for You.
+            </h2>
+          </FadeUp>
+          <div className="mt-14 grid md:grid-cols-3 gap-5">
+            {[
+              {
+                icon: Trophy,
+                title: "Pro Courts",
+                desc: "8 super-panoramic indoor courts — 6 doubles, 2 singles. All-weather, pro LED lighting, tournament-ready from day one.",
+              },
+              {
+                icon: Users,
+                title: "Social Play",
+                desc: "Americano tournaments, mixers, leagues and lessons from world-class pros. Plus a Run Club for everyone.",
+              },
+              {
+                icon: Sparkles,
+                title: "More Than Courts",
+                desc: "Bar & café, pilates and wellbeing sessions, modern changing rooms and on-site physio support.",
+              },
+            ].map((f, i) => (
+              <FadeUp key={f.title} delay={i * 0.1}>
+                <div className="group relative h-full bg-white/[0.06] border border-white/10 p-8 hover:border-court-lime/60 hover:-translate-y-1 hover:bg-white/[0.08] transition-all duration-300 overflow-hidden">
+                  <span className="absolute left-0 top-0 h-full w-1 bg-court-lime origin-bottom scale-y-0 group-hover:scale-y-100 transition-transform duration-300" />
+                  <div className="w-12 h-12 bg-court-lime text-court-navy flex items-center justify-center">
+                    <f.icon className="w-6 h-6" strokeWidth={2.5} />
+                  </div>
+                  <h3 className="mt-6 font-display font-bold uppercase text-2xl tracking-wide">{f.title}</h3>
+                  <p className="mt-3 text-white/65 leading-relaxed">{f.desc}</p>
+                  <ArrowRight className="absolute bottom-6 right-6 w-5 h-5 text-court-lime opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300" />
+                </div>
+              </FadeUp>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Courts */}
-      <section id="courts" className="py-20 sm:py-28 px-5 sm:px-10">
+      <section id="courts" className="py-20 sm:py-28 px-5 sm:px-10 bg-court-blue/40 border-y border-white/10">
         <div className="max-w-6xl mx-auto">
           <FadeUp>
             <span className="text-court-lime font-display uppercase tracking-widest text-sm">Courts</span>
@@ -307,24 +328,32 @@ function Hull() {
             <span className="text-court-lime font-display uppercase tracking-widest text-sm">Pricing</span>
             <h2 className="mt-3 font-display font-extrabold uppercase text-5xl sm:text-7xl leading-[0.95]">Court Hire</h2>
           </FadeUp>
-          <div className="mt-12 grid md:grid-cols-2 gap-5 max-w-3xl">
+
+          {/* Full-width pricing rows */}
+          <div className="mt-12 border border-white/10">
+            {/* Header row */}
+            <div className="grid grid-cols-3 border-b border-white/10 bg-white/[0.03]">
+              <div className="px-6 py-4 font-display font-bold uppercase tracking-widest text-xs text-white/40">Court Type</div>
+              <div className="px-6 py-4 font-display font-bold uppercase tracking-widest text-xs text-white/40 border-l border-white/10">Off-Peak</div>
+              <div className="px-6 py-4 font-display font-bold uppercase tracking-widest text-xs text-white/40 border-l border-white/10">Peak</div>
+            </div>
             {[
-              { type: "Doubles Court", offPeak: "£32 / hr", peak: "£44 / hr", desc: "Up to 4 players" },
-              { type: "Singles Court", offPeak: "£18 / hr", peak: "£22 / hr", desc: "1v1 competitive play" },
+              { type: "Doubles Court", sub: "Up to 4 players", offPeak: "£32", peak: "£44" },
+              { type: "Singles Court", sub: "1v1 play", offPeak: "£18", peak: "£22" },
             ].map((p, i) => (
-              <FadeUp key={p.type} delay={i * 0.1}>
-                <div className="h-full bg-white/[0.06] border border-white/10 p-8 hover:border-court-lime/40 transition">
-                  <p className="text-white/50 text-xs font-display uppercase tracking-widest mb-2">{p.desc}</p>
-                  <h3 className="font-display font-bold uppercase text-2xl tracking-wide">{p.type}</h3>
-                  <div className="mt-6 space-y-3">
-                    <div className="flex justify-between items-center border-b border-white/10 pb-3">
-                      <span className="text-white/65 text-sm uppercase tracking-wider font-display">Off-Peak</span>
-                      <span className="font-display font-bold text-2xl text-court-lime">{p.offPeak}</span>
-                    </div>
-                    <div className="flex justify-between items-center">
-                      <span className="text-white/65 text-sm uppercase tracking-wider font-display">Peak</span>
-                      <span className="font-display font-bold text-2xl">{p.peak}</span>
-                    </div>
+              <FadeUp key={p.type} delay={i * 0.08}>
+                <div className={`grid grid-cols-3 hover:bg-white/[0.04] transition group ${i < 1 ? "border-b border-white/10" : ""}`}>
+                  <div className="px-6 py-7">
+                    <p className="font-display font-bold uppercase text-xl sm:text-2xl tracking-wide">{p.type}</p>
+                    <p className="text-white/45 text-xs font-display uppercase tracking-wider mt-1">{p.sub}</p>
+                  </div>
+                  <div className="px-6 py-7 border-l border-white/10 flex items-center">
+                    <span className="font-display font-extrabold text-4xl sm:text-5xl text-court-lime tabular-nums">{p.offPeak}</span>
+                    <span className="text-white/40 text-sm font-display ml-2 mt-2 self-end pb-1">/ hr</span>
+                  </div>
+                  <div className="px-6 py-7 border-l border-white/10 flex items-center">
+                    <span className="font-display font-extrabold text-4xl sm:text-5xl tabular-nums group-hover:text-white transition">{p.peak}</span>
+                    <span className="text-white/40 text-sm font-display ml-2 mt-2 self-end pb-1">/ hr</span>
                   </div>
                 </div>
               </FadeUp>
@@ -333,7 +362,7 @@ function Hull() {
 
           {/* Membership card */}
           <FadeUp delay={0.2}>
-            <div className="mt-6 max-w-3xl relative overflow-hidden bg-gradient-to-br from-court-lime/15 to-court-lime/5 border border-court-lime/40 p-8">
+            <div className="mt-6 relative overflow-hidden bg-gradient-to-br from-court-lime/15 to-court-lime/5 border border-court-lime/40 p-8 sm:p-10">
               <div className="absolute top-0 right-0 w-48 h-48 pointer-events-none select-none"
                 style={{ background: "radial-gradient(circle, rgba(200,220,0,0.12) 0%, transparent 70%)" }} />
               <div className="relative">
@@ -347,7 +376,7 @@ function Hull() {
                     </h3>
                   </div>
                 </div>
-                <ul className="mt-6 grid sm:grid-cols-2 gap-2 text-sm text-white/80">
+                <ul className="mt-6 grid sm:grid-cols-2 lg:grid-cols-3 gap-2 text-sm text-white/80">
                   {[
                     "10% off all court bookings",
                     "Free racket hire (normally £5)",
@@ -410,7 +439,7 @@ function Hull() {
             <div className="relative aspect-[4/3] border border-white/15 overflow-hidden">
               <iframe
                 title="Court de Padel Hull map"
-                src="https://maps.google.com/maps?q=National+Business+Park,+Bontoft+Avenue,+Hull+HU5+4HF&output=embed&z=15"
+                src="https://maps.google.com/maps?q=National+Business+Park+Bontoft+Avenue+Hull+HU5+4HF&output=embed&z=15"
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
                 allowFullScreen
@@ -459,83 +488,7 @@ function Hull() {
         </div>
       </section>
 
-      {/* Full footer */}
-      <footer className="bg-court-navy border-t border-white/10 pt-16 pb-10 px-5 sm:px-10">
-        <div className="max-w-6xl mx-auto">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-10 pb-12 border-b border-white/10">
-            <div className="col-span-2 md:col-span-1">
-              <p className="font-display font-extrabold uppercase tracking-widest text-white text-lg">Court de Padel</p>
-              <p className="font-display uppercase tracking-widest text-court-lime text-xs mt-0.5">Game · Set · Padel</p>
-              <p className="mt-4 text-white/55 text-sm leading-relaxed max-w-xs">
-                Hull's biggest social padel club. Now open at National Business Park, Bontoft Ave, HU5 4HF.
-              </p>
-            </div>
-            <div>
-              <p className="font-display font-bold uppercase tracking-widest text-xs text-court-lime mb-4">Venues</p>
-              <ul className="space-y-3 text-sm text-white/65">
-                <li>
-                  <Link to="/norwich" className="hover:text-white transition">Norwich — Open Now</Link>
-                  <p className="text-white/35 text-xs mt-0.5">Unit 4 Whiffler Rd, NR3 2BU</p>
-                </li>
-                <li>
-                  <Link to="/hull" className="hover:text-white transition text-white">Hull — Now Open</Link>
-                  <p className="text-white/35 text-xs mt-0.5">Unit 1–3 National Business Park, HU5 4HF</p>
-                </li>
-              </ul>
-            </div>
-            <div>
-              <p className="font-display font-bold uppercase tracking-widest text-xs text-court-lime mb-4">The Club</p>
-              <ul className="space-y-3 text-sm text-white/65">
-                {[
-                  { label: "Courts", href: "#courts" },
-                  { label: "Amenities", href: "#amenities" },
-                  { label: "Pricing", href: "#pricing" },
-                  { label: "Location", href: "#location" },
-                  { label: "Book a Court", href: PLAYTOMIC },
-                ].map((l) => (
-                  <li key={l.href}>
-                    <a href={l.href} className="hover:text-white transition" target={l.href.startsWith("http") ? "_blank" : undefined} rel={l.href.startsWith("http") ? "noreferrer" : undefined}>{l.label}</a>
-                  </li>
-                ))}
-              </ul>
-            </div>
-            <div>
-              <p className="font-display font-bold uppercase tracking-widest text-xs text-court-lime mb-4">Follow Us</p>
-              <ul className="space-y-3 text-sm text-white/65">
-                <li>
-                  <a href="https://www.instagram.com/courtdepadelhull/" target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 hover:text-white transition">
-                    <Instagram className="w-4 h-4" /> @courtdepadelhull
-                  </a>
-                </li>
-                <li>
-                  <a href="https://www.instagram.com/courtdepadel/" target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 hover:text-white transition">
-                    <Instagram className="w-4 h-4" /> @courtdepadel
-                  </a>
-                  <p className="text-white/35 text-xs mt-0.5 ml-6">Norwich</p>
-                </li>
-              </ul>
-              <a href="mailto:hello@courtdepadel.com" className="mt-6 inline-block text-sm text-white/65 hover:text-white transition">
-                hello@courtdepadel.com
-              </a>
-            </div>
-          </div>
-          <div className="mt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-white/35 text-xs">
-            <div className="flex flex-col sm:flex-row items-center gap-4">
-              <p>© 2026 Court de Padel. All rights reserved.</p>
-              <span className="hidden sm:inline text-white/15">·</span>
-              <p>Web design in Hull by <a href="https://swift7.co.uk" target="_blank" rel="noreferrer" className="text-white/55 hover:text-white transition">Swift7</a></p>
-            </div>
-            <a
-              href={PLAYTOMIC}
-              target="_blank"
-              rel="noreferrer"
-              className="font-display font-bold uppercase tracking-wider text-court-lime hover:text-white transition text-xs"
-            >
-              Book a Court →
-            </a>
-          </div>
-        </div>
-      </footer>
+      <SiteFooter />
     </div>
   );
 }

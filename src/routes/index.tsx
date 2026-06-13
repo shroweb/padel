@@ -1,12 +1,11 @@
-import { useState } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { Instagram, MapPin, Trophy, Users, Sparkles, ArrowRight, ArrowUpRight, Menu, X, Check } from "lucide-react";
+import { Instagram, MapPin, Trophy, Users, Sparkles, ArrowRight, ArrowUpRight, Check } from "lucide-react";
 import { WaitlistForm } from "@/components/WaitlistForm";
 import { FadeUp } from "@/components/FadeUp";
-import { Logo } from "@/components/Logo";
 import { Marquee } from "@/components/Marquee";
 import { CountUp } from "@/components/CountUp";
-import { useScrolled } from "@/hooks/use-scrolled";
+import { SiteNav } from "@/components/SiteNav";
+import { SiteFooter } from "@/components/SiteFooter";
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -40,88 +39,9 @@ const PLAYTOMIC =
   "https://playtomic.io/tenant/04a4fdf5-418b-4ebb-888b-1ed46cfa8d9c?utm_campaign=share&utm_source=app_ios";
 
 function Index() {
-  const scrolled = useScrolled(60);
-  const [menuOpen, setMenuOpen] = useState(false);
-
   return (
     <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
-
-      {/* 1. Announcement bar — updated "Hull · Now Open" */}
-      <div className="bg-court-navy text-white/90 text-xs sm:text-sm tracking-widest uppercase py-2 px-4 text-center font-display font-semibold">
-        <span className="inline-flex items-center gap-2">
-          <span className="w-1.5 h-1.5 bg-court-lime rounded-full animate-pulse" />
-          Norwich · Open Now
-        </span>
-        <span className="mx-3 text-white/30">|</span>
-        <span className="inline-flex items-center gap-2">
-          <span className="w-1.5 h-1.5 bg-court-lime rounded-full animate-pulse" />
-          Hull · Now Open
-        </span>
-      </div>
-
-      {/* 2. Nav — with mobile hamburger menu */}
-      <nav
-        className={`sticky top-0 z-40 flex items-center justify-between px-5 sm:px-10 bg-court-blue transition-all duration-300 ${
-          scrolled ? "py-2 border-b border-white/10 shadow-lg" : "py-3"
-        }`}
-      >
-        <a href="#" aria-label="Court de Padel home">
-          <Logo size={scrolled ? 36 : 44} />
-        </a>
-        <div className="hidden lg:flex items-center gap-6 xl:gap-8 font-display uppercase tracking-wider text-sm text-white">
-          <a href="#what-is-padel" className="hover:text-court-lime transition">What is Padel?</a>
-          <a href="#faqs" className="hover:text-court-lime transition">FAQs</a>
-          <Link to="/press" className="hover:text-court-lime transition">Press</Link>
-          <a href="#corporate" className="hover:text-court-lime transition">Corporate</a>
-          <a href="#coming-up" className="hover:text-court-lime transition">Coming up</a>
-          <Link to="/norwich" className="hover:text-court-lime transition">Norwich</Link>
-          <Link to="/hull" className="hover:text-court-lime transition">Hull</Link>
-        </div>
-        <div className="flex items-center gap-3">
-          <a
-            href={PLAYTOMIC}
-            target="_blank"
-            rel="noreferrer"
-            className="bg-court-lime text-court-navy font-display font-bold uppercase tracking-wider text-xs sm:text-sm px-4 sm:px-5 py-2.5 hover:bg-court-lime/90 transition"
-          >
-            Book Now
-          </a>
-          {/* Mobile hamburger */}
-          <button
-            onClick={() => setMenuOpen(!menuOpen)}
-            className="lg:hidden w-10 h-10 flex items-center justify-center text-white hover:text-court-lime transition"
-            aria-label="Toggle menu"
-          >
-            {menuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-          </button>
-        </div>
-      </nav>
-
-      {/* Mobile menu overlay */}
-      {menuOpen && (
-        <div className="lg:hidden fixed inset-0 z-30 bg-court-navy/98 flex flex-col items-center justify-center gap-8 text-center"
-          style={{ top: scrolled ? "52px" : "60px" }}>
-          {[
-            { label: "What is Padel?", href: "#what-is-padel" },
-            { label: "FAQs", href: "#faqs" },
-            { label: "Coming Up", href: "#coming-up" },
-            { label: "Corporate", href: "#corporate" },
-          ].map((item) => (
-            <a
-              key={item.href}
-              href={item.href}
-              onClick={() => setMenuOpen(false)}
-              className="font-display font-bold uppercase tracking-widest text-3xl text-white hover:text-court-lime transition"
-            >
-              {item.label}
-            </a>
-          ))}
-          <div className="flex flex-col gap-4 mt-4">
-            <Link to="/norwich" onClick={() => setMenuOpen(false)} className="font-display font-bold uppercase tracking-widest text-3xl text-white hover:text-court-lime transition">Norwich</Link>
-            <Link to="/hull" onClick={() => setMenuOpen(false)} className="font-display font-bold uppercase tracking-widest text-3xl text-white hover:text-court-lime transition">Hull</Link>
-          </div>
-        </div>
-      )}
+      <SiteNav />
 
       {/* Hero */}
       <header className="relative min-h-[calc(100vh-140px)] flex items-center px-5 sm:px-10 py-16 overflow-hidden">
@@ -141,17 +61,6 @@ function Index() {
 
         <div className="relative z-10 w-full max-w-6xl mx-auto">
           <FadeUp>
-            {/* 4. Updated hero badges — "Hull · Now Open" */}
-            <div className="flex flex-wrap gap-3 mb-6">
-              <Link to="/norwich" className="inline-flex items-center gap-2 bg-court-lime text-court-navy font-display font-bold uppercase tracking-widest text-xs px-3 py-1.5 hover:bg-court-lime/90 transition">
-                <span className="w-1.5 h-1.5 bg-court-navy rounded-full animate-pulse" />
-                Norwich · Open Now
-              </Link>
-              <Link to="/hull" className="inline-flex items-center gap-2 bg-court-lime text-court-navy font-display font-bold uppercase tracking-widest text-xs px-3 py-1.5 hover:bg-court-lime/90 transition">
-                <span className="w-1.5 h-1.5 bg-court-navy rounded-full animate-pulse" />
-                Hull · Now Open
-              </Link>
-            </div>
             <h1 className="font-display font-extrabold uppercase leading-[0.85] text-[clamp(3.5rem,13vw,11rem)] tracking-tight">
               Game
               <span className="inline-block w-[0.06em] h-[0.75em] bg-court-lime mx-[0.15em]" />
@@ -420,7 +329,7 @@ function Index() {
             <div className="relative aspect-[4/3] border border-white/15 overflow-hidden">
               <iframe
                 title="Court de Padel location map"
-                src="https://maps.google.com/maps?q=Unit+3+National+Business+Park,+Bontoft+Avenue,+Hull+HU5+4HF&output=embed&z=15"
+                src="https://maps.google.com/maps?q=National+Business+Park+Bontoft+Avenue+Hull+HU5+4HF&output=embed&z=15"
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
                 allowFullScreen
@@ -852,96 +761,7 @@ function Index() {
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="bg-court-navy border-t border-white/10 pt-16 pb-10 px-5 sm:px-10">
-        <div className="max-w-6xl mx-auto">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-10 pb-12 border-b border-white/10">
-            {/* Brand */}
-            <div className="col-span-2 md:col-span-1">
-              <p className="font-display font-extrabold uppercase tracking-widest text-white text-lg">Court de Padel</p>
-              <p className="font-display uppercase tracking-widest text-court-lime text-xs mt-0.5">Game · Set · Padel</p>
-              <p className="mt-4 text-white/55 text-sm leading-relaxed max-w-xs">
-                Premium indoor padel clubs across the UK. Now open in Norwich and Hull.
-              </p>
-            </div>
-
-            {/* Venues */}
-            <div>
-              <p className="font-display font-bold uppercase tracking-widest text-xs text-court-lime mb-4">Venues</p>
-              <ul className="space-y-3 text-sm text-white/65">
-                <li>
-                  <Link to="/norwich" className="hover:text-white transition">Norwich — Open Now</Link>
-                  <p className="text-white/35 text-xs mt-0.5">Unit 4 Whiffler Rd, NR3 2BU</p>
-                </li>
-                <li>
-                  {/* 14. Footer Hull text updated to "Now Open" */}
-                  <Link to="/hull" className="hover:text-white transition">Hull — Now Open</Link>
-                  <p className="text-white/35 text-xs mt-0.5">Unit 1–3 National Business Park, HU5 4HF</p>
-                </li>
-              </ul>
-            </div>
-
-            {/* Site */}
-            <div>
-              <p className="font-display font-bold uppercase tracking-widest text-xs text-court-lime mb-4">Explore</p>
-              <ul className="space-y-3 text-sm text-white/65">
-                {[
-                  { label: "What is Padel?", href: "#what-is-padel" },
-                  { label: "FAQs", href: "#faqs" },
-                  { label: "Coming Up", href: "#coming-up" },
-                  { label: "Corporate", href: "#corporate" },
-                  { label: "Press", href: "#press" },
-                ].map((l) => (
-                  <li key={l.href}>
-                    <a href={l.href} className="hover:text-white transition">{l.label}</a>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            {/* Social */}
-            <div>
-              <p className="font-display font-bold uppercase tracking-widest text-xs text-court-lime mb-4">Follow Us</p>
-              <ul className="space-y-3 text-sm text-white/65">
-                <li>
-                  <a href="https://www.instagram.com/courtdepadel/" target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 hover:text-white transition">
-                    <Instagram className="w-4 h-4" /> @courtdepadel
-                  </a>
-                  <p className="text-white/35 text-xs mt-0.5 ml-6">Norwich</p>
-                </li>
-                <li>
-                  <a href="https://www.instagram.com/courtdepadelhull/" target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 hover:text-white transition">
-                    <Instagram className="w-4 h-4" /> @courtdepadelhull
-                  </a>
-                  <p className="text-white/35 text-xs mt-0.5 ml-6">Hull</p>
-                </li>
-              </ul>
-              <a
-                href="mailto:hello@courtdepadel.com"
-                className="mt-6 inline-block text-sm text-white/65 hover:text-white transition"
-              >
-                hello@courtdepadel.com
-              </a>
-            </div>
-          </div>
-
-          <div className="mt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-white/35 text-xs">
-            <div className="flex flex-col sm:flex-row items-center gap-4">
-              <p>© 2026 Court de Padel. All rights reserved.</p>
-              <span className="hidden sm:inline text-white/15">·</span>
-              <p>Web design in Hull by <a href="https://swift7.co.uk" target="_blank" rel="noreferrer" className="text-white/55 hover:text-white transition">Swift7</a></p>
-            </div>
-            <a
-              href={PLAYTOMIC}
-              target="_blank"
-              rel="noreferrer"
-              className="font-display font-bold uppercase tracking-wider text-court-lime hover:text-white transition text-xs"
-            >
-              Book a Court →
-            </a>
-          </div>
-        </div>
-      </footer>
+      <SiteFooter />
     </div>
   );
 }

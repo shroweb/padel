@@ -9,11 +9,20 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as WhatIsPadelRouteImport } from './routes/what-is-padel'
 import { Route as PressRouteImport } from './routes/press'
 import { Route as NorwichRouteImport } from './routes/norwich'
 import { Route as HullRouteImport } from './routes/hull'
+import { Route as FaqRouteImport } from './routes/faq'
+import { Route as EventsRouteImport } from './routes/events'
+import { Route as CorporateRouteImport } from './routes/corporate'
 import { Route as IndexRouteImport } from './routes/index'
 
+const WhatIsPadelRoute = WhatIsPadelRouteImport.update({
+  id: '/what-is-padel',
+  path: '/what-is-padel',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const PressRoute = PressRouteImport.update({
   id: '/press',
   path: '/press',
@@ -29,6 +38,21 @@ const HullRoute = HullRouteImport.update({
   path: '/hull',
   getParentRoute: () => rootRouteImport,
 } as any)
+const FaqRoute = FaqRouteImport.update({
+  id: '/faq',
+  path: '/faq',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EventsRoute = EventsRouteImport.update({
+  id: '/events',
+  path: '/events',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CorporateRoute = CorporateRouteImport.update({
+  id: '/corporate',
+  path: '/corporate',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -37,40 +61,88 @@ const IndexRoute = IndexRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/corporate': typeof CorporateRoute
+  '/events': typeof EventsRoute
+  '/faq': typeof FaqRoute
   '/hull': typeof HullRoute
   '/norwich': typeof NorwichRoute
   '/press': typeof PressRoute
+  '/what-is-padel': typeof WhatIsPadelRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/corporate': typeof CorporateRoute
+  '/events': typeof EventsRoute
+  '/faq': typeof FaqRoute
   '/hull': typeof HullRoute
   '/norwich': typeof NorwichRoute
   '/press': typeof PressRoute
+  '/what-is-padel': typeof WhatIsPadelRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/corporate': typeof CorporateRoute
+  '/events': typeof EventsRoute
+  '/faq': typeof FaqRoute
   '/hull': typeof HullRoute
   '/norwich': typeof NorwichRoute
   '/press': typeof PressRoute
+  '/what-is-padel': typeof WhatIsPadelRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/hull' | '/norwich' | '/press'
+  fullPaths:
+    | '/'
+    | '/corporate'
+    | '/events'
+    | '/faq'
+    | '/hull'
+    | '/norwich'
+    | '/press'
+    | '/what-is-padel'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/hull' | '/norwich' | '/press'
-  id: '__root__' | '/' | '/hull' | '/norwich' | '/press'
+  to:
+    | '/'
+    | '/corporate'
+    | '/events'
+    | '/faq'
+    | '/hull'
+    | '/norwich'
+    | '/press'
+    | '/what-is-padel'
+  id:
+    | '__root__'
+    | '/'
+    | '/corporate'
+    | '/events'
+    | '/faq'
+    | '/hull'
+    | '/norwich'
+    | '/press'
+    | '/what-is-padel'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  CorporateRoute: typeof CorporateRoute
+  EventsRoute: typeof EventsRoute
+  FaqRoute: typeof FaqRoute
   HullRoute: typeof HullRoute
   NorwichRoute: typeof NorwichRoute
   PressRoute: typeof PressRoute
+  WhatIsPadelRoute: typeof WhatIsPadelRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/what-is-padel': {
+      id: '/what-is-padel'
+      path: '/what-is-padel'
+      fullPath: '/what-is-padel'
+      preLoaderRoute: typeof WhatIsPadelRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/press': {
       id: '/press'
       path: '/press'
@@ -92,6 +164,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof HullRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/faq': {
+      id: '/faq'
+      path: '/faq'
+      fullPath: '/faq'
+      preLoaderRoute: typeof FaqRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/events': {
+      id: '/events'
+      path: '/events'
+      fullPath: '/events'
+      preLoaderRoute: typeof EventsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/corporate': {
+      id: '/corporate'
+      path: '/corporate'
+      fullPath: '/corporate'
+      preLoaderRoute: typeof CorporateRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -104,9 +197,13 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  CorporateRoute: CorporateRoute,
+  EventsRoute: EventsRoute,
+  FaqRoute: FaqRoute,
   HullRoute: HullRoute,
   NorwichRoute: NorwichRoute,
   PressRoute: PressRoute,
+  WhatIsPadelRoute: WhatIsPadelRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

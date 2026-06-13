@@ -1,8 +1,40 @@
-export function Marquee({ items }: { items: string[] }) {
-  const loop = [...items, ...items, ...items, ...items];
+import { type ReactNode } from "react";
+
+interface MarqueeProps {
+  items?: string[];
+  children?: ReactNode;
+  speed?: number;
+}
+
+export function Marquee({ items, children, speed = 30 }: MarqueeProps) {
+  const duration = `${speed}s`;
+
+  if (children) {
+    return (
+      <div className="overflow-hidden">
+        <div
+          className="flex whitespace-nowrap py-2.5"
+          style={{ animation: `marquee ${duration} linear infinite` }}
+        >
+          {children}
+        </div>
+        <style>{`
+          @keyframes marquee {
+            from { transform: translateX(0); }
+            to { transform: translateX(-50%); }
+          }
+        `}</style>
+      </div>
+    );
+  }
+
+  const loop = [...(items ?? []), ...(items ?? []), ...(items ?? []), ...(items ?? [])];
   return (
     <div className="bg-court-lime text-court-navy border-y border-court-navy/20 overflow-hidden">
-      <div className="flex whitespace-nowrap py-2.5 animate-[marquee_30s_linear_infinite]">
+      <div
+        className="flex whitespace-nowrap py-2.5"
+        style={{ animation: `marquee ${duration} linear infinite` }}
+      >
         {loop.map((t, i) => (
           <span
             key={i}
