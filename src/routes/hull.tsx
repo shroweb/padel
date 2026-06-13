@@ -25,8 +25,7 @@ export const Route = createFileRoute("/hull")({
   }),
 });
 
-const PLAYTOMIC =
-  "https://playtomic.io/tenant/04a4fdf5-418b-4ebb-888b-1ed46cfa8d9c?utm_campaign=share&utm_source=app_ios";
+const PLAYTOMIC = "https://playtomic.com/clubs/court-de-padel-hull";
 
 function Hull() {
   return (
