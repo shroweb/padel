@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { MapPin, Trophy, Users, Sparkles, ArrowRight, Calendar, Smartphone, Check } from "lucide-react";
 import { FadeUp } from "@/components/FadeUp";
 import { CountUp } from "@/components/CountUp";
