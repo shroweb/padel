@@ -24,7 +24,7 @@ const events = [
     title: "Americano Tournaments",
     venue: "Norwich & Hull",
     desc: "Regular Americano-style tournaments — a rotating format where you play with and against everyone. Great for meeting new players and competing at every level. No partner needed.",
-    img: "https://images.squarespace-cdn.com/content/v1/67a13ab7b86cc617d43f803a/1742490680659-FD3SIHX6XICQJMDSTFFT/DSCF8558.jpg",
+    img: "https://images.squarespace-cdn.com/content/v1/6777dae8a2db76294b6d4e0e/3387da17-4241-42dc-a098-52f6a8cec5ab/IMG_7604.JPG?format=800w",
   },
   {
     tag: "Social",
@@ -59,7 +59,7 @@ const events = [
     title: "Padel Leagues",
     venue: "Norwich & Hull",
     desc: "Regular singles and doubles leagues across ability groups. Track your progress, climb the ladder and compete in a proper league structure. Sign up through Playtomic.",
-    img: "https://images.squarespace-cdn.com/content/v1/67a13ab7b86cc617d43f803a/1742490645127-G2C7HW4O5OFIYPUIIS55/DSCF8535.jpg",
+    img: "/722809987_18590251195009497_719732711432549501_n.jpg",
   },
 ];
 

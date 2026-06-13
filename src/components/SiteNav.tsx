@@ -8,6 +8,7 @@ const PLAYTOMIC =
   "https://playtomic.io/tenant/04a4fdf5-418b-4ebb-888b-1ed46cfa8d9c?utm_campaign=share&utm_source=app_ios";
 
 const NAV_LINKS = [
+  { label: "Home", to: "/" as const },
   { label: "What is Padel?", to: "/what-is-padel" as const },
   { label: "FAQs", to: "/faq" as const },
   { label: "Corporate", to: "/corporate" as const },
@@ -29,7 +30,7 @@ export function SiteNav() {
         }`}
       >
         <Link to="/" aria-label="Court de Padel home">
-          <Logo size={scrolled ? 36 : 44} />
+          <Logo size={scrolled ? 48 : 60} />
         </Link>
 
         <div className="hidden lg:flex items-center gap-5 xl:gap-7 font-display uppercase tracking-wider text-sm text-white">
