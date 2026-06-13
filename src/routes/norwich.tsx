@@ -284,6 +284,73 @@ function Norwich() {
         </div>
       </section>
 
+      {/* Menu */}
+      <section className="py-20 sm:py-28 px-5 sm:px-10 bg-court-navy relative overflow-hidden">
+        <div
+          className="absolute inset-0 opacity-[0.035]"
+          style={{
+            backgroundImage: "linear-gradient(var(--court-lime) 1px, transparent 1px), linear-gradient(90deg, var(--court-lime) 1px, transparent 1px)",
+            backgroundSize: "60px 60px",
+          }}
+        />
+        <div
+          className="absolute inset-0 flex items-center justify-end pr-10 pointer-events-none select-none overflow-hidden"
+          aria-hidden
+        >
+          <span
+            className="font-display font-extrabold uppercase text-white/[0.04] leading-none"
+            style={{ fontSize: "clamp(6rem,20vw,14rem)" }}
+          >
+            MENU
+          </span>
+        </div>
+        <div className="relative z-10 max-w-6xl mx-auto grid lg:grid-cols-2 gap-12 items-center">
+          <FadeUp>
+            <span className="text-court-lime font-display uppercase tracking-widest text-sm">Bar &amp; Café</span>
+            <h2
+              className="mt-3 font-display font-extrabold uppercase text-white leading-[0.9] tracking-tight"
+              style={{ fontSize: "clamp(2.5rem,7vw,5.5rem)" }}
+            >
+              Food &amp;<br />
+              <span className="text-court-lime">Drinks</span>
+            </h2>
+            <p className="mt-6 text-white/60 text-lg leading-relaxed max-w-md">
+              Fresh food, great coffee and cold drinks — all available at the Norwich club. Fuel up before a session or wind down after.
+            </p>
+            <a
+              href="/menu-norwich.pdf"
+              target="_blank"
+              rel="noreferrer"
+              className="mt-8 inline-flex items-center gap-2 bg-court-lime text-court-navy font-display font-bold uppercase tracking-wider px-6 py-3.5 hover:bg-court-lime/90 transition"
+            >
+              View Full Menu
+              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
+              </svg>
+            </a>
+          </FadeUp>
+          <FadeUp delay={0.15}>
+            <div className="relative border border-white/15 overflow-hidden bg-white/[0.04] group hover:border-court-lime/40 transition">
+              <iframe
+                src="/menu-norwich.pdf#toolbar=0&navpanes=0&scrollbar=0"
+                className="w-full h-[480px] pointer-events-none"
+                title="Norwich Menu"
+              />
+              <a
+                href="/menu-norwich.pdf"
+                target="_blank"
+                rel="noreferrer"
+                className="absolute inset-0 flex items-center justify-center bg-court-navy/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+              >
+                <span className="font-display font-bold uppercase tracking-widest text-white text-sm border border-white/40 px-5 py-3">
+                  Open Full Menu
+                </span>
+              </a>
+            </div>
+          </FadeUp>
+        </div>
+      </section>
+
       {/* Pricing */}
       <section id="pricing" className="py-20 sm:py-28 px-5 sm:px-10">
         <div className="max-w-6xl mx-auto">
