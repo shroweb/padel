@@ -1,5 +1,6 @@
+import { useState } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { Instagram, MapPin, Trophy, Users, Sparkles, ArrowRight, ArrowUpRight } from "lucide-react";
+import { Instagram, MapPin, Trophy, Users, Sparkles, ArrowRight, ArrowUpRight, Menu, X, Check } from "lucide-react";
 import { WaitlistForm } from "@/components/WaitlistForm";
 import { FadeUp } from "@/components/FadeUp";
 import { Logo } from "@/components/Logo";
@@ -15,12 +16,12 @@ export const Route = createFileRoute("/")({
       {
         name: "description",
         content:
-          "Court de Padel — premium indoor padel clubs in Norwich and Hull. Book a court in Norwich now, or join the waitlist for Hull opening 2026.",
+          "Court de Padel — premium indoor padel clubs in Norwich and Hull. Book a court in Norwich or Hull now.",
       },
       { property: "og:title", content: "Court de Padel — Norwich & Hull" },
       {
         property: "og:description",
-        content: "Premium indoor padel clubs across the UK. Norwich open now. Hull opening 2026.",
+        content: "Premium indoor padel clubs across the UK. Norwich & Hull — now open.",
       },
       { property: "og:type", content: "website" },
     ],
@@ -35,17 +36,30 @@ export const Route = createFileRoute("/")({
   }),
 });
 
+const PLAYTOMIC =
+  "https://playtomic.io/tenant/04a4fdf5-418b-4ebb-888b-1ed46cfa8d9c?utm_campaign=share&utm_source=app_ios";
+
 function Index() {
   const scrolled = useScrolled(60);
+  const [menuOpen, setMenuOpen] = useState(false);
 
   return (
     <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
-      {/* Announcement */}
+
+      {/* 1. Announcement bar — updated "Hull · Now Open" */}
       <div className="bg-court-navy text-white/90 text-xs sm:text-sm tracking-widest uppercase py-2 px-4 text-center font-display font-semibold">
-        Norwich · Open Now &nbsp;|&nbsp; Hull · Opening 2026
+        <span className="inline-flex items-center gap-2">
+          <span className="w-1.5 h-1.5 bg-court-lime rounded-full animate-pulse" />
+          Norwich · Open Now
+        </span>
+        <span className="mx-3 text-white/30">|</span>
+        <span className="inline-flex items-center gap-2">
+          <span className="w-1.5 h-1.5 bg-court-lime rounded-full animate-pulse" />
+          Hull · Now Open
+        </span>
       </div>
 
-      {/* Nav */}
+      {/* 2. Nav — with mobile hamburger menu */}
       <nav
         className={`sticky top-0 z-40 flex items-center justify-between px-5 sm:px-10 bg-court-blue transition-all duration-300 ${
           scrolled ? "py-2 border-b border-white/10 shadow-lg" : "py-3"
@@ -63,16 +77,51 @@ function Index() {
           <Link to="/norwich" className="hover:text-court-lime transition">Norwich</Link>
           <Link to="/hull" className="hover:text-court-lime transition">Hull</Link>
         </div>
-        <a
-          href="https://playtomic.io/tenant/04a4fdf5-418b-4ebb-888b-1ed46cfa8d9c?utm_campaign=share&utm_source=app_ios"
-          target="_blank"
-          rel="noreferrer"
-          className="bg-court-lime text-court-navy font-display font-bold uppercase tracking-wider text-xs sm:text-sm px-4 sm:px-5 py-2.5 hover:bg-court-lime/90 transition"
-        >
-          Book Now
-        </a>
+        <div className="flex items-center gap-3">
+          <a
+            href={PLAYTOMIC}
+            target="_blank"
+            rel="noreferrer"
+            className="bg-court-lime text-court-navy font-display font-bold uppercase tracking-wider text-xs sm:text-sm px-4 sm:px-5 py-2.5 hover:bg-court-lime/90 transition"
+          >
+            Book Now
+          </a>
+          {/* Mobile hamburger */}
+          <button
+            onClick={() => setMenuOpen(!menuOpen)}
+            className="lg:hidden w-10 h-10 flex items-center justify-center text-white hover:text-court-lime transition"
+            aria-label="Toggle menu"
+          >
+            {menuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+          </button>
+        </div>
       </nav>
 
+      {/* Mobile menu overlay */}
+      {menuOpen && (
+        <div className="lg:hidden fixed inset-0 z-30 bg-court-navy/98 flex flex-col items-center justify-center gap-8 text-center"
+          style={{ top: scrolled ? "52px" : "60px" }}>
+          {[
+            { label: "What is Padel?", href: "#what-is-padel" },
+            { label: "FAQs", href: "#faqs" },
+            { label: "Coming Up", href: "#coming-up" },
+            { label: "Corporate", href: "#corporate" },
+          ].map((item) => (
+            <a
+              key={item.href}
+              href={item.href}
+              onClick={() => setMenuOpen(false)}
+              className="font-display font-bold uppercase tracking-widest text-3xl text-white hover:text-court-lime transition"
+            >
+              {item.label}
+            </a>
+          ))}
+          <div className="flex flex-col gap-4 mt-4">
+            <Link to="/norwich" onClick={() => setMenuOpen(false)} className="font-display font-bold uppercase tracking-widest text-3xl text-white hover:text-court-lime transition">Norwich</Link>
+            <Link to="/hull" onClick={() => setMenuOpen(false)} className="font-display font-bold uppercase tracking-widest text-3xl text-white hover:text-court-lime transition">Hull</Link>
+          </div>
+        </div>
+      )}
 
       {/* Hero */}
       <header className="relative min-h-[calc(100vh-140px)] flex items-center px-5 sm:px-10 py-16 overflow-hidden">
@@ -83,21 +132,24 @@ function Index() {
             className="w-full h-full object-cover object-center"
             loading="eager"
           />
-          <div className="absolute inset-0 bg-court-blue/80" />
-          <div className="absolute inset-0 bg-gradient-to-b from-court-blue/40 via-transparent to-background" />
+          <div className="absolute inset-0 bg-court-blue/75" />
+          <div className="absolute inset-0 bg-gradient-to-b from-court-blue/30 via-transparent to-background" />
+          {/* 3. Subtle grid overlay for premium texture */}
+          <div className="absolute inset-0 opacity-[0.04]" style={{ backgroundImage: "linear-gradient(to right, white 1px, transparent 1px), linear-gradient(to bottom, white 1px, transparent 1px)", backgroundSize: "60px 60px" }} />
         </div>
         <div className="absolute -top-40 -right-40 w-[600px] h-[600px] rounded-full bg-court-lime/10 blur-3xl pointer-events-none" />
 
         <div className="relative z-10 w-full max-w-6xl mx-auto">
           <FadeUp>
+            {/* 4. Updated hero badges — "Hull · Now Open" */}
             <div className="flex flex-wrap gap-3 mb-6">
               <Link to="/norwich" className="inline-flex items-center gap-2 bg-court-lime text-court-navy font-display font-bold uppercase tracking-widest text-xs px-3 py-1.5 hover:bg-court-lime/90 transition">
                 <span className="w-1.5 h-1.5 bg-court-navy rounded-full animate-pulse" />
                 Norwich · Open Now
               </Link>
-              <Link to="/hull" className="inline-flex items-center gap-2 border border-court-lime text-court-lime font-display font-bold uppercase tracking-widest text-xs px-3 py-1.5 hover:bg-court-lime/10 transition">
-                <span className="w-1.5 h-1.5 bg-court-lime rounded-full" />
-                Hull · Opening 2026
+              <Link to="/hull" className="inline-flex items-center gap-2 bg-court-lime text-court-navy font-display font-bold uppercase tracking-widest text-xs px-3 py-1.5 hover:bg-court-lime/90 transition">
+                <span className="w-1.5 h-1.5 bg-court-navy rounded-full animate-pulse" />
+                Hull · Now Open
               </Link>
             </div>
             <h1 className="font-display font-extrabold uppercase leading-[0.85] text-[clamp(3.5rem,13vw,11rem)] tracking-tight">
@@ -121,15 +173,16 @@ function Index() {
           </FadeUp>
 
           <FadeUp delay={0.3}>
-            <p className="mt-6 text-white/65 max-w-xl">
-              Super-panoramic indoor courts, social play, leagues and events for every level. Norwich is open now — Hull opens 2026.
+            <p className="mt-6 text-white/65 max-w-xl leading-relaxed">
+              Super-panoramic indoor courts, social play, leagues and events for every level. Both Norwich and Hull are now open.
             </p>
           </FadeUp>
 
           <FadeUp delay={0.4}>
+            {/* 5. Hull CTA updated to "Book Hull Now" */}
             <div className="mt-8 flex flex-wrap gap-4 items-center">
               <a
-                href="https://playtomic.io/tenant/04a4fdf5-418b-4ebb-888b-1ed46cfa8d9c?utm_campaign=share&utm_source=app_ios"
+                href={PLAYTOMIC}
                 target="_blank"
                 rel="noreferrer"
                 className="inline-flex items-center gap-2 bg-court-lime text-court-navy font-display font-bold uppercase tracking-wider text-sm px-6 py-3.5 hover:bg-court-lime/90 transition"
@@ -138,9 +191,9 @@ function Index() {
               </a>
               <Link
                 to="/hull"
-                className="inline-flex items-center gap-2 border border-white/40 text-white font-display font-bold uppercase tracking-wider text-sm px-6 py-3.5 hover:border-court-lime hover:text-court-lime transition"
+                className="inline-flex items-center gap-2 bg-white/10 border border-white/40 text-white font-display font-bold uppercase tracking-wider text-sm px-6 py-3.5 hover:border-court-lime hover:text-court-lime hover:bg-white/5 transition backdrop-blur-sm"
               >
-                Join Hull Waitlist <ArrowRight className="w-4 h-4" />
+                Book Hull Now <ArrowRight className="w-4 h-4" />
               </Link>
             </div>
           </FadeUp>
@@ -151,7 +204,7 @@ function Index() {
       <Marquee
         items={[
           "Norwich · Open Now",
-          "Hull · Opening 2026",
+          "Hull · Now Open",
           "16 Super-Panoramic Indoor Courts",
           "Bar · Café · BodyReset · Physio",
           "Social Play · Leagues · Tournaments",
@@ -159,35 +212,56 @@ function Index() {
         ]}
       />
 
-
-      {/* Photo gallery */}
+      {/* 6. Photo gallery — with hover overlays & captions */}
       <div className="grid grid-cols-2 md:grid-cols-4">
         {[
-          { src: "https://images.squarespace-cdn.com/content/v1/6777dae8a2db76294b6d4e0e/3387da17-4241-42dc-a098-52f6a8cec5ab/IMG_7604.JPG?format=800w", alt: "Court de Padel courts" },
-          { src: "https://images.squarespace-cdn.com/content/v1/6777dae8a2db76294b6d4e0e/59cc6eef-a51a-4001-89bc-827fed2fd44c/6+700%2B+Padel+Photos%2C+taleaux+et+images+libre+de+droits.jpeg?format=800w", alt: "Padel court action" },
-          { src: "https://images.squarespace-cdn.com/content/v1/6777dae8a2db76294b6d4e0e/9d9b6b25-a935-49fd-adc1-8ba57849b8fc/OYSHO+_+NEW+PADEL+COLLECTION+Discover+the+favourite+look+of+our+Padel+Player+%40carlottacasali+%F0%9F%99%8C%F0%9F%8F%BC+%23oysho+%23padel+%23padelplayers+%23carlottacasali+_+Instagram.jpeg?format=800w", alt: "Padel player" },
-          { src: "https://images.squarespace-cdn.com/content/v1/6777dae8a2db76294b6d4e0e/1749813016687-BBWP0MFAA11VJBOD49QT/unsplash-image-JnoNcfFwrNA.jpg?format=800w", alt: "Padel courts" },
+          { src: "https://images.squarespace-cdn.com/content/v1/6777dae8a2db76294b6d4e0e/3387da17-4241-42dc-a098-52f6a8cec5ab/IMG_7604.JPG?format=800w", alt: "Court de Padel courts", caption: "The Courts" },
+          { src: "https://images.squarespace-cdn.com/content/v1/6777dae8a2db76294b6d4e0e/59cc6eef-a51a-4001-89bc-827fed2fd44c/6+700%2B+Padel+Photos%2C+taleaux+et+images+libre+de+droits.jpeg?format=800w", alt: "Padel court action", caption: "Game On" },
+          { src: "https://images.squarespace-cdn.com/content/v1/6777dae8a2db76294b6d4e0e/9d9b6b25-a935-49fd-adc1-8ba57849b8fc/OYSHO+_+NEW+PADEL+COLLECTION+Discover+the+favourite+look+of+our+Padel+Player+%40carlottacasali+%F0%9F%99%8C%F0%9F%8F%BC+%23oysho+%23padel+%23padelplayers+%23carlottacasali+_+Instagram.jpeg?format=800w", alt: "Padel player", caption: "Every Level" },
+          { src: "https://images.squarespace-cdn.com/content/v1/6777dae8a2db76294b6d4e0e/1749813016687-BBWP0MFAA11VJBOD49QT/unsplash-image-JnoNcfFwrNA.jpg?format=800w", alt: "Padel courts", caption: "Social Play" },
         ].map((img) => (
-          <div key={img.src} className="aspect-square overflow-hidden">
+          <div key={img.src} className="aspect-square overflow-hidden relative group">
             <img
               src={img.src}
               alt={img.alt}
-              className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
+              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
               loading="lazy"
             />
+            <div className="absolute inset-0 bg-court-navy/0 group-hover:bg-court-navy/60 transition-all duration-400" />
+            <span className="absolute bottom-4 left-4 font-display font-bold uppercase tracking-widest text-xs text-white opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300">
+              {img.caption}
+            </span>
           </div>
         ))}
       </div>
 
-      {/* Stats */}
-      <section className="bg-court-navy py-12 sm:py-16 px-5 sm:px-10">
-        <div className="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-3 gap-10 sm:gap-6">
+      {/* 7. "As Featured In" press credibility strip */}
+      <div className="bg-court-navy/60 border-y border-white/10 py-6 px-5 sm:px-10">
+        <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center gap-6 sm:gap-10">
+          <span className="font-display uppercase tracking-widest text-xs text-white/40 shrink-0">As Featured In</span>
+          <div className="flex flex-wrap items-center justify-center sm:justify-start gap-6 sm:gap-10">
+            {["Hull Daily Mail", "BBC", "Evening News", "Stoke Sentinel", "hullisthis.news", "PPH Commercial"].map((pub) => (
+              <span key={pub} className="font-display font-bold uppercase tracking-wider text-sm text-white/55 hover:text-white/90 transition cursor-default">
+                {pub}
+              </span>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* 8. Stats — with large background watermark numbers */}
+      <section className="bg-court-navy py-16 sm:py-24 px-5 sm:px-10 relative overflow-hidden">
+        <div className="absolute inset-0 flex items-center justify-center pointer-events-none select-none">
+          <span className="font-display font-extrabold text-[clamp(8rem,30vw,22rem)] text-white/[0.03] leading-none tracking-tight">
+            PADEL
+          </span>
+        </div>
+        <div className="relative max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-3 gap-10 sm:gap-6">
           {[
             { n: 2, suffix: "", l: "UK venues — Norwich & Hull" },
             { n: 16, suffix: "", l: "Super-panoramic indoor courts" },
             { n: 1, prefix: "#", l: "Social padel community in the UK" },
           ].map((s, i) => (
-
             <FadeUp
               key={s.l}
               delay={i * 0.1}
@@ -234,7 +308,6 @@ function Index() {
                 desc: "Bar & café, pilates and wellbeing sessions, modern changing rooms and on-site physio support.",
               },
             ].map((f, i) => (
-
               <FadeUp key={f.title} delay={i * 0.1}>
                 <div className="group relative h-full bg-white/[0.06] border border-white/10 p-8 hover:border-court-lime/60 hover:-translate-y-1 hover:bg-white/[0.08] transition-all duration-300 overflow-hidden">
                   <span className="absolute left-0 top-0 h-full w-1 bg-court-lime origin-bottom scale-y-0 group-hover:scale-y-100 transition-transform duration-300" />
@@ -250,6 +323,64 @@ function Index() {
               </FadeUp>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* 9. "How to Book" — new 3-step editorial section */}
+      <section className="py-20 sm:py-28 px-5 sm:px-10 bg-court-navy relative overflow-hidden">
+        <div className="absolute right-0 top-0 bottom-0 w-1/3 pointer-events-none"
+          style={{ background: "linear-gradient(to left, rgba(200,220,0,0.04), transparent)" }} />
+        <div className="max-w-6xl mx-auto">
+          <FadeUp>
+            <span className="text-court-lime font-display uppercase tracking-widest text-sm">Getting Started</span>
+            <h2 className="mt-3 font-display font-extrabold uppercase text-5xl sm:text-7xl leading-[0.95]">
+              Book in<br />Three Steps
+            </h2>
+          </FadeUp>
+          <div className="mt-16 grid md:grid-cols-3 gap-0">
+            {[
+              {
+                num: "01",
+                title: "Download Playtomic",
+                desc: "Our courts are booked through Playtomic — the world's leading padel booking platform. Free to download on iOS and Android.",
+              },
+              {
+                num: "02",
+                title: "Choose Your Court",
+                desc: "Pick your date, time, and court type — doubles, singles or pickleball. Off-peak and peak slots available seven days a week.",
+              },
+              {
+                num: "03",
+                title: "Show Up & Play",
+                desc: "Rock up, grab a racket if you need one, and hit the court. Our team will sort you out. Coffee's waiting after.",
+              },
+            ].map((step, i) => (
+              <FadeUp key={step.num} delay={i * 0.12}>
+                <div className="relative p-8 md:p-10 border-b md:border-b-0 md:border-r border-white/10 last:border-0">
+                  <span className="font-display font-extrabold text-[5rem] leading-none text-white/[0.06] select-none absolute top-6 right-6">
+                    {step.num}
+                  </span>
+                  <div className="relative">
+                    <span className="font-display font-bold text-court-lime text-sm tracking-widest uppercase">{step.num}</span>
+                    <h3 className="mt-3 font-display font-bold uppercase text-2xl tracking-wide leading-tight">{step.title}</h3>
+                    <p className="mt-4 text-white/65 leading-relaxed text-sm">{step.desc}</p>
+                  </div>
+                </div>
+              </FadeUp>
+            ))}
+          </div>
+          <FadeUp delay={0.3}>
+            <div className="mt-10 pl-8 md:pl-10">
+              <a
+                href={PLAYTOMIC}
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center gap-2 bg-court-lime text-court-navy font-display font-bold uppercase tracking-wider text-sm px-6 py-3.5 hover:bg-court-lime/90 transition"
+              >
+                Book a Court Now <ArrowRight className="w-4 h-4" />
+              </a>
+            </div>
+          </FadeUp>
         </div>
       </section>
 
@@ -300,17 +431,39 @@ function Index() {
         </div>
       </section>
 
-      {/* What is Padel */}
+      {/* 10. "What is Padel?" — updated with local image */}
       <section id="what-is-padel" className="py-20 sm:py-28 px-5 sm:px-10">
-        <div className="max-w-6xl mx-auto grid lg:grid-cols-2 gap-12">
+        <div className="max-w-6xl mx-auto grid lg:grid-cols-2 gap-12 items-center">
           <FadeUp>
             <span className="text-court-lime font-display uppercase tracking-widest text-sm">The Sport</span>
-            <h2 className="mt-3 font-display font-extrabold uppercase text-5xl sm:text-7xl leading-[0.95]">What is Padel?</h2>
+            <h2 className="mt-3 font-display font-extrabold uppercase text-5xl sm:text-7xl leading-[0.95]">What is<br />Padel?</h2>
+            <div className="mt-8 text-white/75 space-y-4 leading-relaxed">
+              <p>Padel is a racket sport that blends tennis and squash — played in doubles on an enclosed glass court roughly a third the size of a tennis court. Easy to pick up, addictive to master.</p>
+              <p>It's the fastest-growing sport in the world. Underarm serve, solid (perforated) rackets, and walls in play make for fast rallies, big laughs and zero learning curve.</p>
+              <p>Whether you've never picked up a racket or you're chasing your next league title, padel is for everyone.</p>
+            </div>
+            <Link
+              to="/norwich"
+              className="mt-8 inline-flex items-center gap-2 border border-white/30 text-white font-display font-bold uppercase tracking-wider text-sm px-5 py-3 hover:border-court-lime hover:text-court-lime transition"
+            >
+              Book a Taster Session <ArrowRight className="w-4 h-4" />
+            </Link>
           </FadeUp>
-          <FadeUp delay={0.1} className="text-white/75 space-y-4 leading-relaxed">
-            <p>Padel is a racket sport that blends tennis and squash — played in doubles on an enclosed glass court roughly a third the size of a tennis court. Easy to pick up, addictive to master.</p>
-            <p>It's the fastest-growing sport in the world. Underarm serve, solid (perforated) rackets, and walls in play make for fast rallies, big laughs and zero learning curve.</p>
-            <p>Whether you've never picked up a racket or you're chasing your next league title, padel is for everyone.</p>
+          <FadeUp delay={0.15}>
+            <div className="relative aspect-[4/3] overflow-hidden border border-white/15">
+              <img
+                src="/722809987_18590251195009497_719732711432549501_n.jpg"
+                alt="Padel court at Court de Padel Hull"
+                className="w-full h-full object-cover"
+                loading="lazy"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-court-navy/60 to-transparent" />
+              <div className="absolute bottom-5 left-5">
+                <span className="font-display font-bold uppercase tracking-widest text-xs text-court-lime bg-court-navy/80 px-3 py-1.5">
+                  Hull · Now Open
+                </span>
+              </div>
+            </div>
           </FadeUp>
         </div>
       </section>
@@ -324,7 +477,7 @@ function Index() {
           </FadeUp>
           <div className="mt-12 grid md:grid-cols-2 gap-5">
             {[
-              { q: "Where are we based?", a: "Norwich — Unit 4 Whiffler Road, NR3 2BU. Hull opens 2026 at Unit 1–3 National Business Park, Bontoft Ave, HU5 4HF." },
+              { q: "Where are we based?", a: "Norwich — Unit 4 Whiffler Road, NR3 2BU. Hull — Unit 1–3 National Business Park, Bontoft Ave, HU5 4HF. Both venues are now open." },
               { q: "How do I book?", a: "All bookings are managed via Playtomic. Hit Book Now in the nav to reserve a court." },
               { q: "How many courts?", a: "6 double super-panoramic courts and 2 single super-panoramic courts, plus table tennis throughout the club." },
               { q: "Indoor or outdoor?", a: "All courts are indoor. We've got you covered for the English weather." },
@@ -343,8 +496,42 @@ function Index() {
         </div>
       </section>
 
+      {/* 11. Testimonial / community quote section */}
+      <section className="py-20 sm:py-28 px-5 sm:px-10 relative overflow-hidden">
+        <div className="absolute inset-0 pointer-events-none">
+          <span className="absolute top-8 left-8 font-display font-extrabold text-[12rem] leading-none text-white/[0.025] select-none">"</span>
+        </div>
+        <div className="max-w-4xl mx-auto relative">
+          <FadeUp>
+            <blockquote className="font-display font-bold uppercase text-3xl sm:text-5xl leading-[1.1] tracking-tight text-white">
+              The best padel club in the north. The courts are world-class, the atmosphere is electric and the community keeps you coming back.
+            </blockquote>
+            <div className="mt-10 flex items-center gap-5">
+              <div className="flex -space-x-3">
+                {[
+                  "https://images.squarespace-cdn.com/content/v1/6777dae8a2db76294b6d4e0e/a7b664ea-d3ed-4a1f-a21e-f775bdeda4a9/IMG_7560+2.JPG?format=200w",
+                  "https://images.squarespace-cdn.com/content/v1/6777dae8a2db76294b6d4e0e/e34b6463-4654-4438-b83d-1f30040fa420/IMG_7561.JPG?format=200w",
+                  "https://images.squarespace-cdn.com/content/v1/6777dae8a2db76294b6d4e0e/3387da17-4241-42dc-a098-52f6a8cec5ab/IMG_7604.JPG?format=200w",
+                ].map((src, i) => (
+                  <div key={i} className="w-10 h-10 rounded-full overflow-hidden border-2 border-court-navy">
+                    <img src={src} alt="" className="w-full h-full object-cover" loading="lazy" />
+                  </div>
+                ))}
+              </div>
+              <div>
+                <p className="font-display font-bold uppercase tracking-wider text-sm text-white">Our Members</p>
+                <p className="text-white/55 text-sm mt-0.5">500+ players and counting</p>
+              </div>
+              <div className="ml-auto hidden sm:block">
+                <span className="font-display font-bold uppercase tracking-widest text-xs text-court-lime border border-court-lime/40 px-3 py-1.5">★★★★★</span>
+              </div>
+            </div>
+          </FadeUp>
+        </div>
+      </section>
+
       {/* Press */}
-      <section id="press" className="py-20 sm:py-28 px-5 sm:px-10">
+      <section id="press" className="py-20 sm:py-28 px-5 sm:px-10 bg-court-blue/40 border-y border-white/10">
         <div className="max-w-6xl mx-auto">
           <FadeUp>
             <span className="text-court-lime font-display uppercase tracking-widest text-sm">Press</span>
@@ -375,15 +562,15 @@ function Index() {
                 date: "11 Nov 2025",
                 tag: "Hull",
                 headline: "Court De Padel to open new Padel centre in Hull",
-                excerpt: "Court De Padel announces its newest venue at Unit 3, National Business Park, Bontoft Avenue, HU5 4HF — opening to the public in March 2026.",
+                excerpt: "Court De Padel announces its newest venue at Unit 3, National Business Park, Bontoft Avenue, HU5 4HF.",
                 href: "https://hullisthis.news/court-de-padel-to-open-new-padel-centre-in-hull/",
               },
             ].map((p, i) => (
               <FadeUp key={p.headline} delay={i * 0.1}>
                 <a
                   href={p.href}
-                  target={p.href !== "#" ? "_blank" : undefined}
-                  rel={p.href !== "#" ? "noreferrer" : undefined}
+                  target="_blank"
+                  rel="noreferrer"
                   className="group flex flex-col h-full bg-white/[0.06] border border-white/10 p-8 hover:border-court-lime/60 hover:-translate-y-1 hover:bg-white/[0.08] transition-all duration-300"
                 >
                   <div className="flex items-center justify-between gap-3 mb-4">
@@ -416,27 +603,37 @@ function Index() {
       </section>
 
       {/* Corporate */}
-      <section id="corporate" className="py-20 sm:py-28 px-5 sm:px-10 bg-court-blue/40 border-y border-white/10">
+      <section id="corporate" className="py-20 sm:py-28 px-5 sm:px-10">
         <div className="max-w-6xl mx-auto grid lg:grid-cols-2 gap-12 items-center">
           <FadeUp>
             <span className="text-court-lime font-display uppercase tracking-widest text-sm">Corporate</span>
             <h2 className="mt-3 font-display font-extrabold uppercase text-5xl sm:text-7xl leading-[0.95]">Team Days,<br />Done Right.</h2>
           </FadeUp>
-          <FadeUp delay={0.1} className="text-white/75 space-y-4 leading-relaxed">
-            <p>Court bookings, Americano tournaments, coaching, food and drink — fully-tailored corporate events at both our Norwich and Hull venues.</p>
-            <p>Perfect for client entertaining, team away days, charity events and league nights. We handle every detail.</p>
-            <a
-              href="mailto:hello@courtdepadel.com"
-              className="inline-flex items-center gap-2 mt-4 bg-court-lime text-court-navy font-display font-bold uppercase tracking-wider text-sm px-5 py-3 hover:bg-court-lime/90 transition"
-            >
-              Enquire Now <ArrowRight className="w-4 h-4" />
-            </a>
+          <FadeUp delay={0.1}>
+            <div className="text-white/75 space-y-4 leading-relaxed">
+              <p>Court bookings, Americano tournaments, coaching, food and drink — fully-tailored corporate events at both our Norwich and Hull venues.</p>
+              <p>Perfect for client entertaining, team away days, charity events and league nights. We handle every detail.</p>
+              <div className="mt-6 grid grid-cols-2 gap-3">
+                {["Court hire", "Tournament format", "Coaching included", "Bar & food"].map((item) => (
+                  <div key={item} className="flex items-center gap-2 text-sm text-white/80">
+                    <Check className="w-4 h-4 text-court-lime shrink-0" />
+                    {item}
+                  </div>
+                ))}
+              </div>
+              <a
+                href="mailto:hello@courtdepadel.com"
+                className="inline-flex items-center gap-2 mt-6 bg-court-lime text-court-navy font-display font-bold uppercase tracking-wider text-sm px-5 py-3 hover:bg-court-lime/90 transition"
+              >
+                Enquire Now <ArrowRight className="w-4 h-4" />
+              </a>
+            </div>
           </FadeUp>
         </div>
       </section>
 
-      {/* Coming up */}
-      <section id="coming-up" className="py-20 sm:py-28 px-5 sm:px-10">
+      {/* 12. Coming up — with visual tags */}
+      <section id="coming-up" className="py-20 sm:py-28 px-5 sm:px-10 bg-court-blue/40 border-y border-white/10">
         <div className="max-w-6xl mx-auto">
           <FadeUp>
             <span className="text-court-lime font-display uppercase tracking-widest text-sm">Coming Up</span>
@@ -444,14 +641,17 @@ function Index() {
           </FadeUp>
           <div className="mt-12 grid md:grid-cols-2 lg:grid-cols-4 gap-5">
             {[
-              { title: "Americano Tournaments", desc: "Regular Americano-style tournaments and mixers — meet new players and compete at every level." },
-              { title: "Sunday Run Club", desc: "A fun social run for all members followed by a free coffee. Every Sunday — all abilities welcome." },
-              { title: "Ladies Padel Social", desc: "Skills sessions and mini Americano games in a welcoming, all-abilities format. Follow us on Instagram for dates." },
-              { title: "Sports Screen", desc: "Watch Wimbledon, live sports and padel on our big screen with drinks in hand. Great vibes all summer." },
+              { title: "Americano Tournaments", tag: "Competitive", desc: "Regular Americano-style tournaments and mixers — meet new players and compete at every level." },
+              { title: "Sunday Run Club", tag: "Social", desc: "A fun social run for all members followed by a free coffee. Every Sunday — all abilities welcome." },
+              { title: "Ladies Padel Social", tag: "Community", desc: "Skills sessions and mini Americano games in a welcoming, all-abilities format. Follow us on Instagram for dates." },
+              { title: "Sports Screen", tag: "Events", desc: "Watch Wimbledon, live sports and padel on our big screen with drinks in hand. Great vibes all summer." },
             ].map((c, i) => (
               <FadeUp key={c.title} delay={i * 0.08}>
                 <div className="h-full bg-white/[0.06] border border-white/10 p-6 hover:border-court-lime/60 hover:-translate-y-1 transition-all duration-300">
-                  <h3 className="font-display font-bold uppercase text-xl tracking-wide text-court-lime">{c.title}</h3>
+                  <span className="inline-block font-display font-bold uppercase tracking-widest text-xs text-court-lime border border-court-lime/40 px-2.5 py-1 mb-4">
+                    {c.tag}
+                  </span>
+                  <h3 className="font-display font-bold uppercase text-xl tracking-wide leading-tight">{c.title}</h3>
                   <p className="mt-3 text-white/70 leading-relaxed text-sm">{c.desc}</p>
                 </div>
               </FadeUp>
@@ -461,7 +661,7 @@ function Index() {
       </section>
 
       {/* Norwich */}
-      <section id="norwich" className="py-20 sm:py-28 px-5 sm:px-10 bg-court-blue/40 border-y border-white/10">
+      <section id="norwich" className="py-20 sm:py-28 px-5 sm:px-10">
         <div className="max-w-6xl mx-auto grid lg:grid-cols-2 gap-12 items-center">
           <FadeUp>
             <span className="text-court-lime font-display uppercase tracking-widest text-sm">Norwich · Open Now</span>
@@ -476,7 +676,7 @@ function Index() {
             <p className="mt-6 text-white/65 max-w-md">Open since November 2025 — fast become the number one padel venue in Norfolk.</p>
             <div className="mt-8 flex flex-wrap gap-3">
               <a
-                href="https://playtomic.io/tenant/04a4fdf5-418b-4ebb-888b-1ed46cfa8d9c?utm_campaign=share&utm_source=app_ios"
+                href={PLAYTOMIC}
                 target="_blank"
                 rel="noreferrer"
                 className="inline-flex items-center gap-2 bg-court-lime text-court-navy font-display font-bold uppercase tracking-wider text-sm px-5 py-3 hover:bg-court-lime/90 transition"
@@ -496,7 +696,7 @@ function Index() {
                 { n: 1, prefix: "#", l: "Padel venue in Norfolk" },
                 { n: 21, suffix: "d", l: "Member priority booking" },
               ].map((s) => (
-                <div key={s.l} className="bg-white/[0.06] border border-white/10 p-6">
+                <div key={s.l} className="bg-white/[0.06] border border-white/10 p-6 hover:border-court-lime/40 transition">
                   <div className="font-display font-extrabold text-4xl text-court-lime tabular-nums">
                     <CountUp to={s.n} prefix={s.prefix ?? ""} suffix={s.suffix ?? ""} />
                   </div>
@@ -508,20 +708,33 @@ function Index() {
         </div>
       </section>
 
-      {/* Hull */}
-      <section id="hull" className="py-20 sm:py-28 px-5 sm:px-10">
-        <div className="max-w-6xl mx-auto">
+      {/* 13. Hull section — updated "Now Open" + Book Now CTA */}
+      <section id="hull" className="py-20 sm:py-28 px-5 sm:px-10 bg-court-blue/40 border-y border-white/10 relative overflow-hidden">
+        <div className="absolute inset-0 pointer-events-none select-none flex items-center justify-end pr-10 opacity-[0.025]">
+          <span className="font-display font-extrabold text-[clamp(6rem,20vw,16rem)] leading-none tracking-tight text-white">HULL</span>
+        </div>
+        <div className="max-w-6xl mx-auto relative">
           <FadeUp>
-            <span className="text-court-lime font-display uppercase tracking-widest text-sm">Hull · Opening 2026</span>
-            <h2 className="mt-3 font-display font-extrabold uppercase text-5xl sm:text-7xl leading-[0.95]">Hull's Biggest<br />Social Padel Club</h2>
+            <div className="flex items-center gap-3 mb-4">
+              <span className="inline-flex items-center gap-2 bg-court-lime text-court-navy font-display font-bold uppercase tracking-widest text-xs px-3 py-1.5">
+                <span className="w-1.5 h-1.5 bg-court-navy rounded-full animate-pulse" />
+                Hull · Now Open
+              </span>
+            </div>
+            <h2 className="font-display font-extrabold uppercase text-5xl sm:text-7xl leading-[0.95]">Hull's Biggest<br />Social Padel Club</h2>
           </FadeUp>
           <div className="mt-10 grid lg:grid-cols-2 gap-12 items-start">
             <FadeUp delay={0.1} className="text-white/75 space-y-4 leading-relaxed">
-              <p>Our second site — 6 double + 2 single super-panoramic courts, plus professional pickleball courts. BodyReset physio, bar & café, in-house food and modern changing rooms.</p>
+              <p>Our Hull venue is now open — 6 double + 2 single super-panoramic courts, plus professional pickleball courts. BodyReset physio, bar & café, in-house food and modern changing rooms.</p>
               <p>Unit 1–3 National Business Park, Bontoft Avenue, Kingston Upon Hull, HU5 4HF. Loads of free parking. Five minutes off the A1079.</p>
               <div className="flex flex-wrap gap-3 mt-2">
-                <a href="#waitlist" className="inline-flex items-center gap-2 bg-court-lime text-court-navy font-display font-bold uppercase tracking-wider text-sm px-5 py-3 hover:bg-court-lime/90 transition">
-                  Join Waitlist <ArrowRight className="w-4 h-4" />
+                <a
+                  href={PLAYTOMIC}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex items-center gap-2 bg-court-lime text-court-navy font-display font-bold uppercase tracking-wider text-sm px-5 py-3 hover:bg-court-lime/90 transition"
+                >
+                  Book Hull Now <ArrowRight className="w-4 h-4" />
                 </a>
                 <Link to="/hull" className="inline-flex items-center gap-2 border border-white/30 text-white font-display font-bold uppercase tracking-wider text-sm px-5 py-3 hover:border-court-lime hover:text-court-lime transition">
                   Full Hull Info <ArrowRight className="w-4 h-4" />
@@ -529,15 +742,14 @@ function Index() {
               </div>
             </FadeUp>
             <FadeUp delay={0.15}>
-              <div className="aspect-[4/3] border border-white/15 overflow-hidden">
-                <iframe
-                  title="Court de Padel Hull map"
-                  src="https://maps.google.com/maps?q=Unit+3+National+Business+Park,+Bontoft+Avenue,+Hull+HU5+4HF&output=embed&z=15"
+              <div className="aspect-[4/3] border border-white/15 overflow-hidden relative">
+                <img
+                  src="/722809987_18590251195009497_719732711432549501_n.jpg"
+                  alt="Court de Padel Hull venue"
+                  className="w-full h-full object-cover"
                   loading="lazy"
-                  referrerPolicy="no-referrer-when-downgrade"
-                  allowFullScreen
-                  className="w-full h-full border-0"
                 />
+                <div className="absolute inset-0 bg-gradient-to-t from-court-navy/50 to-transparent" />
               </div>
             </FadeUp>
           </div>
@@ -550,13 +762,13 @@ function Index() {
         <div className="relative z-10 max-w-3xl mx-auto text-center">
           <FadeUp>
             <span className="inline-block bg-court-lime text-court-navy font-display font-bold uppercase tracking-widest text-xs px-3 py-1.5">
-              Waitlist
+              Community
             </span>
             <h2 className="mt-6 font-display font-extrabold uppercase text-5xl sm:text-7xl leading-[0.95]">
-              Be First<br />Through the Gate
+              Stay in the<br />Loop
             </h2>
             <p className="mt-6 text-white/75 max-w-xl mx-auto">
-              Sign up and we'll let you know the moment we open — plus early booking access for waitlist members.
+              Sign up and be first to hear about new events, tournaments, member offers and everything happening at Court de Padel.
             </p>
             <div className="mt-10 flex justify-center">
               <WaitlistForm variant="cta" />
@@ -649,7 +861,7 @@ function Index() {
               <p className="font-display font-extrabold uppercase tracking-widest text-white text-lg">Court de Padel</p>
               <p className="font-display uppercase tracking-widest text-court-lime text-xs mt-0.5">Game · Set · Padel</p>
               <p className="mt-4 text-white/55 text-sm leading-relaxed max-w-xs">
-                Premium indoor padel clubs across the UK. Open in Norwich. Coming to Hull in 2026.
+                Premium indoor padel clubs across the UK. Now open in Norwich and Hull.
               </p>
             </div>
 
@@ -662,7 +874,8 @@ function Index() {
                   <p className="text-white/35 text-xs mt-0.5">Unit 4 Whiffler Rd, NR3 2BU</p>
                 </li>
                 <li>
-                  <Link to="/hull" className="hover:text-white transition">Hull — Opening 2026</Link>
+                  {/* 14. Footer Hull text updated to "Now Open" */}
+                  <Link to="/hull" className="hover:text-white transition">Hull — Now Open</Link>
                   <p className="text-white/35 text-xs mt-0.5">Unit 1–3 National Business Park, HU5 4HF</p>
                 </li>
               </ul>
@@ -719,7 +932,7 @@ function Index() {
               <p>Web design in Hull by <a href="https://swift7.co.uk" target="_blank" rel="noreferrer" className="text-white/55 hover:text-white transition">Swift7</a></p>
             </div>
             <a
-              href="https://playtomic.io/tenant/04a4fdf5-418b-4ebb-888b-1ed46cfa8d9c?utm_campaign=share&utm_source=app_ios"
+              href={PLAYTOMIC}
               target="_blank"
               rel="noreferrer"
               className="font-display font-bold uppercase tracking-wider text-court-lime hover:text-white transition text-xs"
