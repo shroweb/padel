@@ -476,6 +476,51 @@ function Hull() {
         </div>
       </section>
 
+      {/* Google Reviews */}
+      <section className="py-20 sm:py-28 px-5 sm:px-10 bg-court-navy border-t border-white/10">
+        <div className="max-w-6xl mx-auto">
+          <FadeUp>
+            <div className="flex flex-col sm:flex-row sm:items-end gap-4 sm:gap-8">
+              <div>
+                <span className="text-court-lime font-display uppercase tracking-widest text-sm">Google Reviews</span>
+                <h2 className="mt-3 font-display font-extrabold uppercase text-5xl sm:text-6xl leading-[0.95]">What People<br />Are Saying</h2>
+              </div>
+              <div className="flex items-center gap-3 pb-1">
+                <div className="flex gap-0.5">
+                  {[...Array(5)].map((_, i) => (
+                    <svg key={i} className="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
+                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                    </svg>
+                  ))}
+                </div>
+                <span className="font-display font-bold text-2xl text-white">5.0</span>
+              </div>
+            </div>
+          </FadeUp>
+          <div className="mt-12 grid md:grid-cols-3 gap-5">
+            {[
+              { name: "Kai Bell", review: "Such a great addition for Hull! Amazing set up, and super friendly Padel coaches and staff. Book on the Playtomic app." },
+              { name: "blink bounce", review: "Went this morning - amazing set up - Super Panoramic courts - single and double - and good choice of coffees and soft drinks. Will be a regular here." },
+              { name: "Abbie Patterson", review: "Amazing set up, staff super friendly and lots of lessons and socials to choose from and can hire racquets. Would recommend." },
+            ].map((r, i) => (
+              <FadeUp key={r.name} delay={i * 0.1}>
+                <div className="h-full bg-white/[0.05] border border-white/10 p-6 hover:border-court-lime/40 transition-colors duration-300">
+                  <div className="flex gap-0.5 mb-4">
+                    {[...Array(5)].map((_, j) => (
+                      <svg key={j} className="w-4 h-4 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                      </svg>
+                    ))}
+                  </div>
+                  <p className="text-white/75 text-sm leading-relaxed">"{r.review}"</p>
+                  <p className="mt-4 font-display font-bold uppercase tracking-wider text-xs text-court-lime">{r.name}</p>
+                </div>
+              </FadeUp>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Location */}
       <section id="location" className="py-20 sm:py-28 px-5 sm:px-10 bg-court-blue/40 border-y border-white/10">
         <div className="max-w-6xl mx-auto grid lg:grid-cols-2 gap-12 items-center">
