@@ -38,38 +38,38 @@
   --color-court-lime: var(--court-lime);
   --color-glass: var(--glass);
 
-  --font-display: "Barlow Condensed", system-ui, sans-serif;
-  --font-sans: "DM Sans", system-ui, sans-serif;
+  --font-display: "Unbounded", system-ui, sans-serif;
+  --font-sans: "Space Grotesk", system-ui, sans-serif;
 }
 
 :root {
   --radius: 0px;
 
-  /* Brand */
-  --background: oklch(0.31 0.18 271);          /* #0F2A7A deep royal blue */
+  /* Brand — East Coast Padel */
+  --background: oklch(0.18 0.05 162);          /* very dark teal */
   --foreground: oklch(1 0 0);                  /* white */
-  --court-blue: #05347e;                       /* nav / brand blue */
-  --court-navy: oklch(0.24 0.16 273);          /* #0D1F5C dark navy */
-  --court-lime: oklch(0.90 0.22 117);          /* #C8DC00 electric yellow-green */
+  --court-blue: #0C3A30;                       /* dark forest teal (nav) */
+  --court-navy: oklch(0.14 0.04 162);          /* deeper dark teal */
+  --court-lime: oklch(0.79 0.11 295);          /* ECP lavender #C6B1F6 */
   --glass: oklch(1 0 0 / 0.06);
 
   --card: oklch(1 0 0 / 0.06);
   --card-foreground: oklch(1 0 0);
-  --popover: oklch(0.24 0.16 273);
+  --popover: oklch(0.14 0.04 162);
   --popover-foreground: oklch(1 0 0);
-  --primary: oklch(0.90 0.22 117);
-  --primary-foreground: oklch(0.18 0.12 273);
-  --secondary: oklch(0.24 0.16 273);
+  --primary: oklch(0.79 0.11 295);
+  --primary-foreground: oklch(0.14 0.04 162);
+  --secondary: oklch(0.14 0.04 162);
   --secondary-foreground: oklch(1 0 0);
   --muted: oklch(1 0 0 / 0.08);
   --muted-foreground: oklch(1 0 0 / 0.65);
-  --accent: oklch(0.90 0.22 117);
-  --accent-foreground: oklch(0.18 0.12 273);
+  --accent: oklch(0.79 0.11 295);
+  --accent-foreground: oklch(0.14 0.04 162);
   --destructive: oklch(0.6 0.22 27);
   --destructive-foreground: oklch(1 0 0);
   --border: oklch(1 0 0 / 0.12);
   --input: oklch(1 0 0 / 0.1);
-  --ring: oklch(0.90 0.22 117);
+  --ring: oklch(0.79 0.11 295);
 }
 
 @layer base {
@@ -83,6 +83,6 @@
   }
   h1, h2, h3, h4, .font-display {
     font-family: var(--font-display);
-    letter-spacing: 0.01em;
+    letter-spacing: 0;
   }
 }

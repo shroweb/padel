@@ -1,12 +1,10 @@
-import logoSrc from "@/assets/logo.webp";
-
 export function Logo({ className = "", size = 40 }: { className?: string; size?: number }) {
   return (
     <img
-      src={logoSrc}
-      alt="Court de Padel"
+      src="/ecp-logo.png"
+      alt="East Coast Padel"
       style={{ height: size }}
-      className={`w-auto block ${className}`}
+      className={`w-auto block brightness-0 invert drop-shadow-[0_0_12px_rgba(255,255,255,0.35)] ${className}`}
     />
   );
 }

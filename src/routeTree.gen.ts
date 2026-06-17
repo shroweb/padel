@@ -10,17 +10,38 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as WhatIsPadelRouteImport } from './routes/what-is-padel'
+import { Route as TermsAndConditionsRouteImport } from './routes/terms-and-conditions'
+import { Route as TermsRouteImport } from './routes/terms'
+import { Route as StoreRouteImport } from './routes/store'
 import { Route as PressRouteImport } from './routes/press'
 import { Route as NorwichRouteImport } from './routes/norwich'
 import { Route as HullRouteImport } from './routes/hull'
 import { Route as FaqRouteImport } from './routes/faq'
 import { Route as EventsRouteImport } from './routes/events'
 import { Route as CorporateRouteImport } from './routes/corporate'
+import { Route as Contact1RouteImport } from './routes/contact-1'
+import { Route as ContactRouteImport } from './routes/contact'
+import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 
 const WhatIsPadelRoute = WhatIsPadelRouteImport.update({
   id: '/what-is-padel',
   path: '/what-is-padel',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TermsAndConditionsRoute = TermsAndConditionsRouteImport.update({
+  id: '/terms-and-conditions',
+  path: '/terms-and-conditions',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TermsRoute = TermsRouteImport.update({
+  id: '/terms',
+  path: '/terms',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const StoreRoute = StoreRouteImport.update({
+  id: '/store',
+  path: '/store',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PressRoute = PressRouteImport.update({
@@ -53,6 +74,21 @@ const CorporateRoute = CorporateRouteImport.update({
   path: '/corporate',
   getParentRoute: () => rootRouteImport,
 } as any)
+const Contact1Route = Contact1RouteImport.update({
+  id: '/contact-1',
+  path: '/contact-1',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ContactRoute = ContactRouteImport.update({
+  id: '/contact',
+  path: '/contact',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AboutRoute = AboutRouteImport.update({
+  id: '/about',
+  path: '/about',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -61,76 +97,118 @@ const IndexRoute = IndexRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/contact': typeof ContactRoute
+  '/contact-1': typeof Contact1Route
   '/corporate': typeof CorporateRoute
   '/events': typeof EventsRoute
   '/faq': typeof FaqRoute
   '/hull': typeof HullRoute
   '/norwich': typeof NorwichRoute
   '/press': typeof PressRoute
+  '/store': typeof StoreRoute
+  '/terms': typeof TermsRoute
+  '/terms-and-conditions': typeof TermsAndConditionsRoute
   '/what-is-padel': typeof WhatIsPadelRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/contact': typeof ContactRoute
+  '/contact-1': typeof Contact1Route
   '/corporate': typeof CorporateRoute
   '/events': typeof EventsRoute
   '/faq': typeof FaqRoute
   '/hull': typeof HullRoute
   '/norwich': typeof NorwichRoute
   '/press': typeof PressRoute
+  '/store': typeof StoreRoute
+  '/terms': typeof TermsRoute
+  '/terms-and-conditions': typeof TermsAndConditionsRoute
   '/what-is-padel': typeof WhatIsPadelRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/contact': typeof ContactRoute
+  '/contact-1': typeof Contact1Route
   '/corporate': typeof CorporateRoute
   '/events': typeof EventsRoute
   '/faq': typeof FaqRoute
   '/hull': typeof HullRoute
   '/norwich': typeof NorwichRoute
   '/press': typeof PressRoute
+  '/store': typeof StoreRoute
+  '/terms': typeof TermsRoute
+  '/terms-and-conditions': typeof TermsAndConditionsRoute
   '/what-is-padel': typeof WhatIsPadelRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/about'
+    | '/contact'
+    | '/contact-1'
     | '/corporate'
     | '/events'
     | '/faq'
     | '/hull'
     | '/norwich'
     | '/press'
+    | '/store'
+    | '/terms'
+    | '/terms-and-conditions'
     | '/what-is-padel'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/about'
+    | '/contact'
+    | '/contact-1'
     | '/corporate'
     | '/events'
     | '/faq'
     | '/hull'
     | '/norwich'
     | '/press'
+    | '/store'
+    | '/terms'
+    | '/terms-and-conditions'
     | '/what-is-padel'
   id:
     | '__root__'
     | '/'
+    | '/about'
+    | '/contact'
+    | '/contact-1'
     | '/corporate'
     | '/events'
     | '/faq'
     | '/hull'
     | '/norwich'
     | '/press'
+    | '/store'
+    | '/terms'
+    | '/terms-and-conditions'
     | '/what-is-padel'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AboutRoute: typeof AboutRoute
+  ContactRoute: typeof ContactRoute
+  Contact1Route: typeof Contact1Route
   CorporateRoute: typeof CorporateRoute
   EventsRoute: typeof EventsRoute
   FaqRoute: typeof FaqRoute
   HullRoute: typeof HullRoute
   NorwichRoute: typeof NorwichRoute
   PressRoute: typeof PressRoute
+  StoreRoute: typeof StoreRoute
+  TermsRoute: typeof TermsRoute
+  TermsAndConditionsRoute: typeof TermsAndConditionsRoute
   WhatIsPadelRoute: typeof WhatIsPadelRoute
 }
 
@@ -141,6 +219,27 @@ declare module '@tanstack/react-router' {
       path: '/what-is-padel'
       fullPath: '/what-is-padel'
       preLoaderRoute: typeof WhatIsPadelRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/terms-and-conditions': {
+      id: '/terms-and-conditions'
+      path: '/terms-and-conditions'
+      fullPath: '/terms-and-conditions'
+      preLoaderRoute: typeof TermsAndConditionsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/terms': {
+      id: '/terms'
+      path: '/terms'
+      fullPath: '/terms'
+      preLoaderRoute: typeof TermsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/store': {
+      id: '/store'
+      path: '/store'
+      fullPath: '/store'
+      preLoaderRoute: typeof StoreRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/press': {
@@ -185,6 +284,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CorporateRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/contact-1': {
+      id: '/contact-1'
+      path: '/contact-1'
+      fullPath: '/contact-1'
+      preLoaderRoute: typeof Contact1RouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/contact': {
+      id: '/contact'
+      path: '/contact'
+      fullPath: '/contact'
+      preLoaderRoute: typeof ContactRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/about': {
+      id: '/about'
+      path: '/about'
+      fullPath: '/about'
+      preLoaderRoute: typeof AboutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -197,12 +317,18 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AboutRoute: AboutRoute,
+  ContactRoute: ContactRoute,
+  Contact1Route: Contact1Route,
   CorporateRoute: CorporateRoute,
   EventsRoute: EventsRoute,
   FaqRoute: FaqRoute,
   HullRoute: HullRoute,
   NorwichRoute: NorwichRoute,
   PressRoute: PressRoute,
+  StoreRoute: StoreRoute,
+  TermsRoute: TermsRoute,
+  TermsAndConditionsRoute: TermsAndConditionsRoute,
   WhatIsPadelRoute: WhatIsPadelRoute,
 }
 export const routeTree = rootRouteImport

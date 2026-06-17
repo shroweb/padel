@@ -4,18 +4,14 @@ import { Menu, X } from "lucide-react";
 import { Logo } from "@/components/Logo";
 import { useScrolled } from "@/hooks/use-scrolled";
 
-const PLAYTOMIC =
-  "https://playtomic.io/tenant/04a4fdf5-418b-4ebb-888b-1ed46cfa8d9c?utm_campaign=share&utm_source=app_ios";
+const PLAYTOMIC = "https://playtomic.com/clubs/east-coast-padel";
 
 const NAV_LINKS = [
   { label: "Home", to: "/" as const },
-  { label: "What is Padel?", to: "/what-is-padel" as const },
-  { label: "FAQs", to: "/faq" as const },
-  { label: "Corporate", to: "/corporate" as const },
-  { label: "Coming Up", to: "/events" as const },
-  { label: "Press", to: "/press" as const },
-  { label: "Norwich", to: "/norwich" as const },
-  { label: "Hull", to: "/hull" as const },
+  { label: "About", to: "/about" as const },
+  { label: "Contact", to: "/contact" as const },
+  { label: "Store", to: "/store" as const },
+  { label: "Terms", to: "/terms" as const },
 ];
 
 export function SiteNav() {
@@ -29,8 +25,8 @@ export function SiteNav() {
           scrolled ? "py-2 border-b border-white/10 shadow-lg" : "py-3"
         }`}
       >
-        <Link to="/" aria-label="Court de Padel home">
-          <Logo size={scrolled ? 48 : 60} />
+        <Link to="/" aria-label="East Coast Padel home">
+          <Logo size={scrolled ? 54 : 68} />
         </Link>
 
         <div className="hidden lg:flex items-center gap-5 xl:gap-7 font-display uppercase tracking-wider text-sm text-white">

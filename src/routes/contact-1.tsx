@@ -1,7 +1,7 @@
 import { createFileRoute, redirect } from "@tanstack/react-router";
 
-export const Route = createFileRoute("/press")({
+export const Route = createFileRoute("/contact-1")({
   beforeLoad: () => {
-    throw redirect({ to: "/about" });
+    throw redirect({ to: "/contact" });
   },
 });

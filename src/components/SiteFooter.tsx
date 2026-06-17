@@ -1,9 +1,10 @@
 import { Link } from "@tanstack/react-router";
-import { Instagram } from "lucide-react";
+import { Instagram, Facebook, MapPin, Mail } from "lucide-react";
 import { Logo } from "@/components/Logo";
 
-const PLAYTOMIC =
-  "https://playtomic.io/tenant/04a4fdf5-418b-4ebb-888b-1ed46cfa8d9c?utm_campaign=share&utm_source=app_ios";
+const PLAYTOMIC = "https://playtomic.com/clubs/east-coast-padel";
+const INSTAGRAM = "https://www.instagram.com/eastcoastpadel.uk?igsh=Mm40YWI1ejU2MGEy";
+const FACEBOOK = "https://www.facebook.com/profile.php?id=61574851976436";
 
 export function SiteFooter() {
   return (
@@ -13,33 +14,31 @@ export function SiteFooter() {
           <div className="col-span-2 md:col-span-1">
             <Logo />
             <p className="mt-4 text-white/55 text-sm leading-relaxed max-w-xs">
-              Premium indoor padel clubs across the UK. Now open in Norwich and Hull.
+              Bringing the dynamic sport of padel to East Yorkshire and North Lincolnshire.
             </p>
           </div>
 
           <div>
-            <p className="font-display font-bold uppercase tracking-widest text-xs text-court-lime mb-4">Venues</p>
+            <p className="font-display font-bold uppercase tracking-widest text-xs text-court-lime mb-4">Location</p>
             <ul className="space-y-3 text-sm text-white/65">
               <li>
-                <Link to="/norwich" className="hover:text-white transition">Norwich — Open Now</Link>
-                <p className="text-white/35 text-xs mt-0.5">Unit 4 Whiffler Rd, NR3 2BU</p>
+                <p className="text-white font-display font-bold uppercase tracking-wide text-sm">Hull — Open Now</p>
+                <p className="text-white/35 text-xs mt-0.5 flex items-start gap-1.5"><MapPin className="w-3 h-3 mt-0.5 shrink-0" />Active+, Harpings Rd, HU5 4JF</p>
               </li>
-              <li>
-                <Link to="/hull" className="hover:text-white transition">Hull — Now Open</Link>
-                <p className="text-white/35 text-xs mt-0.5">Unit 1–3 National Business Park, HU5 4HF</p>
+              <li className="mt-3">
+                <p className="text-white/50 font-display uppercase tracking-wide text-sm">Cleethorpes — Coming Soon</p>
               </li>
             </ul>
           </div>
 
           <div>
-            <p className="font-display font-bold uppercase tracking-widest text-xs text-court-lime mb-4">Explore</p>
+            <p className="font-display font-bold uppercase tracking-widest text-xs text-court-lime mb-4">Quick Links</p>
             <ul className="space-y-3 text-sm text-white/65">
               {[
-                { label: "What is Padel?", to: "/what-is-padel" as const },
-                { label: "FAQs", to: "/faq" as const },
-                { label: "Corporate", to: "/corporate" as const },
-                { label: "Coming Up", to: "/events" as const },
-                { label: "Press", to: "/press" as const },
+                { label: "About Us", to: "/about" as const },
+                { label: "Contact Us", to: "/contact" as const },
+                { label: "Store", to: "/store" as const },
+                { label: "Terms & Conditions", to: "/terms" as const },
               ].map((l) => (
                 <li key={l.to}>
                   <Link to={l.to} className="hover:text-white transition">{l.label}</Link>
@@ -49,33 +48,29 @@ export function SiteFooter() {
           </div>
 
           <div>
-            <p className="font-display font-bold uppercase tracking-widest text-xs text-court-lime mb-4">Follow Us</p>
+            <p className="font-display font-bold uppercase tracking-widest text-xs text-court-lime mb-4">Get In Touch</p>
             <ul className="space-y-3 text-sm text-white/65">
               <li>
-                <a href="https://www.instagram.com/courtdepadel/" target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 hover:text-white transition">
-                  <Instagram className="w-4 h-4" /> @courtdepadel
+                <a href="mailto:info@eastcoastpadel.co.uk" className="inline-flex items-center gap-2 hover:text-white transition">
+                  <Mail className="w-4 h-4" /> info@eastcoastpadel.co.uk
                 </a>
-                <p className="text-white/35 text-xs mt-0.5 ml-6">Norwich</p>
               </li>
               <li>
-                <a href="https://www.instagram.com/courtdepadelhull/" target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 hover:text-white transition">
-                  <Instagram className="w-4 h-4" /> @courtdepadelhull
+                <a href={INSTAGRAM} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 hover:text-white transition">
+                  <Instagram className="w-4 h-4" /> @eastcoastpadel.uk
                 </a>
-                <p className="text-white/35 text-xs mt-0.5 ml-6">Hull</p>
+              </li>
+              <li>
+                <a href={FACEBOOK} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 hover:text-white transition">
+                  <Facebook className="w-4 h-4" /> East Coast Padel
+                </a>
               </li>
             </ul>
-            <a href="mailto:hello@courtdepadel.com" className="mt-6 inline-block text-sm text-white/65 hover:text-white transition">
-              hello@courtdepadel.com
-            </a>
           </div>
         </div>
 
         <div className="mt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-white/35 text-xs">
-          <div className="flex flex-col sm:flex-row items-center gap-4">
-            <p>© 2026 Court de Padel. All rights reserved.</p>
-            <span className="hidden sm:inline text-white/15">·</span>
-            <p>Web design by <a href="https://swift7.co.uk" target="_blank" rel="noreferrer" className="text-white/55 hover:text-white transition">Swift7</a></p>
-          </div>
+          <p>© 2026 East Coast Padel. All rights reserved.</p>
           <a
             href={PLAYTOMIC}
             target="_blank"
